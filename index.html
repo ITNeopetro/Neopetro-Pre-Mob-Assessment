@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crew E-Learning System</title>
+    <title>NEOPETRO - Safety Awareness Training</title>
     <style>
         :root {
             --primary: #2c3e50;
@@ -32,23 +32,46 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .company-logo {
+            max-width: 250px; /* Controlled size: not too big, not too small */
+            height: auto;
+            display: inline-block;
+        }
+
         .hidden { display: none; }
 
-        h1, h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; }
+        h1, h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; text-align: center; }
 
         .btn {
-            display: inline-block;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 20px auto;
             background: var(--accent);
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            font-weight: bold;
             transition: background 0.3s ease;
+            text-align: center;
         }
 
         .btn:hover { background: #2980b9; }
+
+        .briefing-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-left: 5px solid var(--accent);
+            margin: 20px 0;
+        }
 
         .question-card {
             margin-bottom: 25px;
@@ -61,12 +84,13 @@
             display: block;
             margin: 10px 0;
             cursor: pointer;
-            padding: 8px;
+            padding: 10px;
             background: #f9f9f9;
             border-radius: 4px;
+            border: 1px solid transparent;
         }
 
-        .options label:hover { background: #f1f1f1; }
+        .options label:hover { background: #f1f1f1; border-color: #ccc; }
 
         .results-box {
             text-align: center;
@@ -74,13 +98,14 @@
             margin-top: 20px;
         }
 
-        .pass { color: var(--success); font-weight: bold; font-size: 1.2em; }
-        .fail { color: var(--danger); font-weight: bold; font-size: 1.2em; }
+        .pass { color: var(--success); font-weight: bold; font-size: 1.5em; }
+        .fail { color: var(--danger); font-weight: bold; font-size: 1.5em; }
         
         .progress {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 20px;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 10px;
+            text-align: right;
         }
     </style>
 </head>
@@ -88,57 +113,69 @@
 
 <div class="container">
     <div id="briefing-section">
-        <h1>Crew Briefing & Self-Learning</h1>
-        <p>Welcome to the mandatory safety and operational briefing. Please review the materials below before proceeding to the exam.</p>
+        <div class="logo-container">
+            <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
+        </div>
         
-        <div style="background: #f8f9fa; padding: 15px; border-left: 5px solid var(--accent);">
-            <h3>Key Operations Guidelines:</h3>
+        <h1>Crew Briefing & Self-Learning</h1>
+        
+        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the materials below thoroughly before proceeding to the assessment.</p>
+        
+        <div class="briefing-box">
+            <h3>Standard Operating Procedures:</h3>
             <ul>
-                <li>Always wear appropriate PPE on deck.</li>
-                <li>Report all hazards to the supervisor immediately.</li>
-                <li>Emergency assembly point is located at Deck B.</li>
-                <li>Standard shift handover requires a verbal and written log.</li>
+                <li>Ensure all safety gear (PPE) is inspected before starting a shift.</li>
+                <li>Familiarize yourself with the location of emergency shut-off valves.</li>
+                <li>Zero-tolerance policy for safety protocol bypasses.</li>
+                <li>Communication via designated channels is mandatory at all times.</li>
             </ul>
         </div>
         
-        <p>Once you have fully understood the materials, click the button below to start your assessment. You will be asked 25 random questions.</p>
-        <button class="btn" onclick="startExam()">I am ready to start the Exam</button>
+        <p style="text-align: center; color: #666;">Note: The exam consists of 25 random questions. Passing mark is 20/25.</p>
+        
+        <button class="btn" onclick="startExam()">START ASSESSMENT</button>
     </div>
 
     <div id="exam-section" class="hidden">
-        <h2 id="exam-title">Crew Assessment</h2>
-        <div class="progress">Question <span id="current-count">1</span> of 25</div>
+        <h2>Assessment in Progress</h2>
+        <div class="progress">Total Questions: 25</div>
         <div id="quiz-container"></div>
-        <button class="btn" onclick="submitExam()">Submit My Answers</button>
+        <button class="btn" onclick="submitExam()">SUBMIT ANSWERS</button>
     </div>
 
     <div id="result-section" class="hidden">
-        <h2>Exam Results</h2>
+        <div class="logo-container">
+            <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
+        </div>
+        <h2>Final Result</h2>
         <div id="result-content" class="results-box"></div>
-        <button class="btn" onclick="location.reload()">Restart Training</button>
+        <button class="btn" onclick="location.reload()">RESTART SESSION</button>
     </div>
 </div>
 
 <script>
-    // 1. QUESTION BANK (100 Questions)
-    // For brevity in this code block, I have included 30 sample questions. 
-    // You can follow the pattern to add up to 100.
+    /* QUESTION BANK (100 Questions)
+       Replace these samples with your actual 100 questions.
+       'q' = Question, 'a' = Options, 'correct' = Index of right answer (0, 1, 2, or 3)
+    */
     const questionBank = [
-        { q: "What is the primary color of a 'Danger' sign?", a: ["Red", "Blue", "Green", "Yellow"], correct: 0 },
-        { q: "Who is responsible for safety on deck?", a: ["Captain only", "The Cook", "Everyone", "Safety Officer only"], correct: 2 },
-        { q: "What does PPE stand for?", a: ["Private Personal Equipment", "Personal Protective Equipment", "Personal Professional Entry", "Primary Protection Engine"], correct: 1 },
-        { q: "Where is the assembly point?", a: ["Engine Room", "Deck B", "The Galley", "Bridge"], correct: 1 },
-        { q: "Fire extinguishers should be checked:", a: ["Every 5 years", "Never", "Regularly/Monthly", "Only after a fire"], correct: 2 },
-        // ... Adding dummy questions to demonstrate the 100-question selection logic
+        { q: "What is the most important factor in NEOPETRO operations?", a: ["Speed", "Safety", "Cost", "Quantity"], correct: 1 },
+        { q: "Which PPE is mandatory for deck operations?", a: ["Safety Boots", "Sunglasses", "Casual Wear", "None"], correct: 0 },
+        { q: "Where can you find the Emergency Action Plan?", a: ["In the Galley", "On the Bridge", "At every safety station", "In the personal quarters"], correct: 2 },
+        { q: "If a spill is detected, what is the first step?", a: ["Ignore it", "Report and Contain", "Go home", "Clean it later"], correct: 1 },
+        { q: "What color code is used for flammable materials?", a: ["Blue", "Green", "Red", "White"], correct: 2 }
+        // Add more questions here until you reach 100...
     ];
 
-    // Generate remaining dummy questions to fill the bank to 100 for your logic
-    for (let i = 6; i <= 100; i++) {
-        questionBank.push({
-            q: "Sample Question " + i + ": Is safety important?",
-            a: ["Yes", "No", "Maybe", "Not sure"],
-            correct: 0
-        });
+    // Placeholder logic to ensure we have at least 100 questions for the randomizer to work
+    if (questionBank.length < 100) {
+        for (let i = questionBank.length + 1; i <= 100; i++) {
+            questionBank.push({
+                q: "Additional Operational Question " + i + "?",
+                a: ["Standard Option A", "Correct Answer B", "Option C", "Option D"],
+                correct: 1
+            });
+        }
     }
 
     let selectedQuestions = [];
@@ -146,11 +183,12 @@
     function startExam() {
         document.getElementById('briefing-section').classList.add('hidden');
         document.getElementById('exam-section').classList.remove('hidden');
+        window.scrollTo(0,0);
         
-        // 5. AUTO SELECT RANDOM 25 QUESTIONS
+        // AUTO SELECT RANDOM 25 QUESTIONS FROM THE 100
         selectedQuestions = questionBank
-            .sort(() => 0.5 - Math.random()) // Shuffle
-            .slice(0, 25); // Take 25
+            .sort(() => 0.5 - Math.random()) 
+            .slice(0, 25); 
 
         renderQuiz();
     }
@@ -177,6 +215,9 @@
     }
 
     function submitExam() {
+        // Confirmation before submitting
+        if(!confirm("Are you sure you want to submit your answers?")) return;
+
         let score = 0;
         selectedQuestions.forEach((item, index) => {
             const selected = document.querySelector(`input[name="q${index}"]:checked`);
@@ -193,16 +234,19 @@
         const resultSection = document.getElementById('result-section');
         const resultContent = document.getElementById('result-content');
         resultSection.classList.remove('hidden');
+        window.scrollTo(0,0);
 
-        // 3. PASSING MARKS 20/25
-        const passStatus = score >= 20 ? 
-            `<p class="pass">PASSED</p>` : 
-            `<p class="fail">FAILED (Requires 20/25)</p>`;
+        // PASSING MARKS 20/25
+        const isPassed = score >= 20;
+        const passStatus = isPassed ? 
+            `<p class="pass">CONGRATULATIONS! YOU PASSED.</p>` : 
+            `<p class="fail">DID NOT PASS (Minimum 20/25 Required)</p>`;
 
         resultContent.innerHTML = `
-            <h3>Your Score: ${score} / 25</h3>
+            <h3>Score: ${score} / 25</h3>
             ${passStatus}
-            <p>You answered ${score} questions correctly out of 25.</p>
+            <p>You correctly answered ${score} out of 25 questions.</p>
+            <p>${isPassed ? 'You have successfully completed the training module.' : 'Please review the briefing materials and try again.'}</p>
         `;
     }
 </script>
