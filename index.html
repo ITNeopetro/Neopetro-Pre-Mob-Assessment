@@ -91,6 +91,14 @@
         }
 
         .btn-secondary { background: #95a5a6; }
+        .btn-secondary:hover { background: #7f8c8d; }
+
+        .briefing-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 5px solid var(--accent);
+            margin: 20px 0;
+        }
 
         /* PDF Viewer Container */
         .pdf-wrapper {
@@ -103,13 +111,13 @@
             height: 600px;
             border: 2px solid #eee;
             border-radius: 8px;
-            overflow-y: auto; /* Enable scrolling on the container */
+            overflow-y: auto;
             background: #525659;
         }
 
         iframe {
             width: 100%;
-            height: 1000px; /* Set iframe height longer than container to force container scroll */
+            height: 2000px; /* Forces vertical scrolling within the container */
             border: none;
             display: block;
         }
@@ -151,6 +159,13 @@
         .results-box { text-align: center; padding: 20px; }
         .pass { color: var(--success); font-weight: bold; font-size: 1.2em; }
         .fail { color: var(--danger); font-weight: bold; font-size: 1.2em; }
+        
+        .progress-text {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -163,7 +178,18 @@
             <div class="training-title">Safety Awareness Training</div>
             <hr class="blue-line">
         </div>
-        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety briefing. Please complete the reading material before the assessment.</p>
+        
+        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the training materials before proceeding to the assessment.</p>
+        
+        <div class="briefing-box">
+            <h3>System Instructions:</h3>
+            <ul>
+                <li>Select your designated training category.</li>
+                <li>Read through all presentation slides (PDF).</li>
+                <li>Complete the assessment with at least 80% marks.</li>
+            </ul>
+        </div>
+        
         <div style="text-align: center;">
             <button class="btn" onclick="showCategorySelection()">Next</button>
         </div>
@@ -207,6 +233,7 @@
         </div>
 
         <div style="text-align: center;">
+            <button class="btn btn-secondary" onclick="showCategorySelection()">Cancel</button>
             <button class="btn" id="exam-start-btn" disabled onclick="startExam()">Start Assessment</button>
         </div>
     </div>
@@ -216,6 +243,7 @@
             <div class="company-name">Assessment</div>
             <hr class="blue-line">
         </div>
+        <div class="progress-text">Question Set: 25 Random Questions</div>
         <div id="quiz-container"></div>
         <div style="text-align: center;">
             <button class="btn" onclick="submitExam()">Submit My Answers</button>
@@ -236,6 +264,7 @@
 </div>
 
 <script>
+    // DATA: Link your specific PDF filenames here
     const trainingData = {
         'SAT A': ['SAT-A1', 'SAT-A2'],
         'SAT B': ['SAT-B1', 'SAT-B2']
@@ -248,11 +277,12 @@
         'SAT-B2': 'SAT B2.pdf'
     };
 
+    // Placeholder Question Bank
     const questionBank = [];
     for (let i = 1; i <= 100; i++) {
         questionBank.push({
-            q: "Safety Awareness Question #" + i + ": What is the primary safety rule?",
-            a: ["Ignore signs", "Follow all safety protocols", "Work faster", "Skip PTST"],
+            q: "Safety Awareness Question #" + i + ": What is the primary safety rule at NEOPETRO?",
+            a: ["Work as fast as possible", "Follow all safety protocols and PPE rules", "Ignore minor hazards", "Report only major accidents"],
             correct: 1
         });
     }
@@ -291,42 +321,57 @@
     function openPDF(sub) {
         hideAll();
         currentCourse = sub;
-        hasRead = false; // Reset scroll check for new module
-        document.getElementById('exam-start-btn').disabled = true;
-        document.getElementById('scroll-warning').classList.remove('hidden');
+        hasRead = false; 
+        
+        // Reset Exam Button state
+        const examBtn = document.getElementById('exam-start-btn');
+        examBtn.disabled = true;
+        
+        // Reset Notification
+        const notice = document.getElementById('scroll-warning');
+        notice.innerHTML = "⚠️ Please scroll to the bottom of the document to unlock the Exam button.";
+        notice.style.background = "#fff3cd";
+        notice.style.color = "#856404";
+        notice.classList.remove('hidden');
+        
         document.getElementById('current-course-title').innerText = sub;
         
         const pdfBox = document.getElementById('pdf-box');
         const encodedFile = encodeURIComponent(pdfFiles[sub]);
         
-        // We use a high height on the iframe so the parent container becomes scrollable
-        pdfBox.innerHTML = `<iframe src="${encodedFile}#toolbar=0" style="height:2000px;"></iframe>`;
+        // Injects iframe; high height used to ensure parent container scrollbar is active
+        pdfBox.innerHTML = `<iframe src="${encodedFile}#toolbar=0"></iframe>`;
         
         document.getElementById('pdf-viewer').classList.remove('hidden');
-        pdfBox.scrollTop = 0; // Reset scroll to top
+        pdfBox.scrollTop = 0; 
     }
 
-    // SCROLL DETECTION LOGIC
+    // SCROLL CHECK: Triggers when the wrapper reaches the end of the content
     function checkScroll(el) {
-        // If user scrolls within 50px of the bottom
         if (el.scrollHeight - el.scrollTop <= el.clientHeight + 50) {
             if (!hasRead) {
                 hasRead = true;
-                const btn = document.getElementById('exam-start-btn');
-                btn.disabled = false;
-                document.getElementById('scroll-warning').innerHTML = "✅ Document Review Complete. You may now start the exam.";
-                document.getElementById('scroll-warning').style.background = "#d4edda";
-                document.getElementById('scroll-warning').style.color = "#155724";
+                document.getElementById('exam-start-btn').disabled = false;
+                const notice = document.getElementById('scroll-warning');
+                notice.innerHTML = "✅ Document Review Complete. You may now start the assessment.";
+                notice.style.background = "#d4edda";
+                notice.style.color = "#155724";
             }
         }
     }
 
     function startExam() {
+        if(!confirm("Ready to start the assessment?")) return;
         hideAll();
         document.getElementById('exam-section').classList.remove('hidden');
-        selectedQuestions = questionBank.sort(() => 0.5 - Math.random()).slice(0, 25);
-        renderQuiz();
         window.scrollTo(0,0);
+        
+        // Randomize and select 25 questions
+        selectedQuestions = questionBank
+            .sort(() => 0.5 - Math.random()) 
+            .slice(0, 25); 
+
+        renderQuiz();
     }
 
     function renderQuiz() {
@@ -348,6 +393,7 @@
     }
 
     function submitExam() {
+        if(!confirm("Submit answers?")) return;
         let score = 0;
         selectedQuestions.forEach((item, index) => {
             const sel = document.querySelector(`input[name="q${index}"]:checked`);
@@ -363,9 +409,10 @@
         res.classList.remove('hidden');
         const pass = score >= 20;
         cont.innerHTML = `
-            <h3>Result: ${currentCourse}</h3>
-            <h4>Score: ${score} / 25</h4>
-            ${pass ? '<p class="pass">PASSED</p>' : '<p class="fail">FAILED (Min 20/25 Required)</p>'}
+            <h3>Module: ${currentCourse}</h3>
+            <h4>Your Score: ${score} / 25</h4>
+            ${pass ? '<p class="pass">PASSED</p>' : '<p class="fail">FAILED (Min 20/25 required)</p>'}
+            <p>Training session completed.</p>
         `;
     }
 </script>
