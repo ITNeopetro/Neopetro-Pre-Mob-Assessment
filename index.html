@@ -38,14 +38,14 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            opacity: 0.10; /* 10% Opacity */
-            z-index: -1; /* Keeps it behind the content */
+            opacity: 0.10; 
+            z-index: -1; 
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95); /* Slight transparency to show background through */
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -256,7 +256,7 @@
         <div class="header-section"><div class="company-name">Select Training Type</div><hr class="blue-line"></div>
         <div class="selection-grid" style="display: flex; justify-content: center; gap: 10px;">
             <button class="btn" onclick="openPDF('SAT-A2')">Safety Awareness Training (SAT A)</button>
-            <button class="btn" onclick="showSubSelection('SAT B')">Safety Awareness Training (SAT B)</button>
+            <button class="btn" onclick="alert('Coming Soon')">Safety Awareness Training (SAT B)</button>
         </div>
     </div>
 
@@ -328,7 +328,6 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     const trainingData = { 'SAT A': ['SAT-A2'], 'SAT B': ['SAT-B1', 'SAT-B2'] };
     const pdfFiles = { 'SAT-A2': 'SAT A2.pdf', 'SAT-B1': 'SAT B1.pdf', 'SAT-B2': 'SAT B2.pdf' };
     
-    // FULL QUESTION BANK SYNCED WITH DOCUMENT
     const masterQuestionBank = [
         { q: "What is HSSE?", a: ["Heat, Safe, Security, Environment", "Health, Safety, Security, Environment", "Help Safety Security Environment", "Heal, Safe, Secure, Environment"], correct: "Health, Safety, Security, Environment" },
         { q: "Which of the following is NOT the Company's core values?", a: ["Corruption", "Respect", "Excellence", "Integrity"], correct: "Corruption" },
