@@ -40,7 +40,6 @@
         .blue-line { border: none; border-top: 2px solid var(--accent); margin: 0; }
         .hidden { display: none; }
 
-        /* Form Styles */
         .info-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0; text-align: left; }
         .form-group { display: flex; flex-direction: column; }
         .form-group label { font-weight: bold; margin-bottom: 5px; font-size: 0.9em; }
@@ -96,7 +95,6 @@
         .pass { color: var(--success); font-weight: bold; font-size: 1.5em; }
         .fail { color: var(--danger); font-weight: bold; font-size: 1.5em; }
 
-        /* CERTIFICATE STYLES WITH UPDATED FADED WATERMARK */
         #certificate-template {
             width: 850px;
             height: 600px;
@@ -121,14 +119,14 @@
             flex-wrap: wrap;
             justify-content: center;
             align-content: center;
-            font-size: 22px; /* Smaller font */
+            font-size: 22px; 
             font-weight: bold;
-            color: rgba(180, 180, 180, 0.15); /* Much more faded transparency */
+            color: rgba(180, 180, 180, 0.12);
             transform: rotate(-35deg);
             z-index: 0;
             pointer-events: none;
-            line-height: 100px; /* Tighter line spacing for smaller font */
-            letter-spacing: 6px;
+            line-height: 100px; 
+            letter-spacing: 5px;
             white-space: pre;
         }
 
@@ -281,16 +279,13 @@
 
 <div id="certificate-template" class="hidden">
     <div class="watermark-overlay">
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     </div>
     <div class="cert-inner">
         <img src="NEOPETRO LOGO.png" style="width: 120px; margin-bottom: 10px;">
@@ -312,21 +307,251 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     const trainingData = { 'SAT A': ['SAT-A2'], 'SAT B': ['SAT-B1', 'SAT-B2'] };
     const pdfFiles = { 'SAT-A2': 'SAT A2.pdf', 'SAT-B1': 'SAT B1.pdf', 'SAT-B2': 'SAT B2.pdf' };
     
+    // FULL QUESTION BANK SYNCED WITH DOCUMENT
     const masterQuestionBank = [
-        { q: "Who has the right to Stop Work?", a: ["Master", "Contractor/Supplier", "DPA", "All of the above"], correct: "All of the above" },
-        { q: "What is the system called for energy isolation process?", a: ["MOPO", "TOTO", "LOTO", "PTW"], correct: "LOTO" },
-        { q: "What is the Company's prescribed Limit for Blood Alcohol Concentration (BAC)?", a: ["0.00%", "0.01%", "0.02%", "0.03%"], correct: "0.00%" },
-        { q: "Who is responsible for your safety?", a: ["Managing Director", "General Manager", "DPA", "Myself"], correct: "Myself" },
-        { q: "How many rules does the IOGP Life-saving rules have?", a: ["9", "12", "15", "18"], correct: "9" },
-        { q: "What document required to report an unsafe act and unsafe condition?", a: ["Statement of Fact", "Initial Incident Notification Form", "ACT Form", "Incident Investigation Report"], correct: "ACT Form" },
-        { q: "Which physical property of H2S is wrong?", a: ["Toxic gas", "Flammable", "Rotten egg smell at high concentration", "Heavier than air"], correct: "Rotten egg smell at high concentration" },
-        { q: "Where is the MUSTER STATION located?", a: ["Inside Bridegroom", "Main Deck on vessel", "Engine Room", "Galley"], correct: "Main Deck on vessel" },
-        { q: "What is the frequency of Safety Meeting to be carry out onboard?", a: ["Weekly", "Quarterly", "Monthly", "Yearly"], correct: "Monthly" },
-        { q: "Who has the overall responsibility for HSSE in the Company?", a: ["Myself", "DPA", "General Manager", "Managing Director"], correct: "Managing Director" },
+        { q: "What is HSSE?", a: ["Heat, Safe, Security, Environment", "Health, Safety, Security, Environment", "Help Safety Security Environment", "Heal, Safe, Secure, Environment"], correct: "Health, Safety, Security, Environment" },
+        { q: "Which of the following is NOT the Company's core values?", a: ["Corruption", "Respect", "Excellence", "Integrity"], correct: "Corruption" },
         { q: "What is legislation related to Marine Pollution?", a: ["SOLAS", "STWC", "MARPOL", "MLC"], correct: "MARPOL" },
-        { q: "When should the Shipboard Safety Officer conducting familiarization briefing to new on-signer onboard?", a: ["Immediately", "Within 1 week", "Within 1 hour", "Within 24 hours"], correct: "Immediately" },
-        { q: "Choose the correct answer. The most effective hierarchy of control to the least effective.", a: ["Elimination -> Substitution -> Engineering Controls -> Administrative Controls -> PPE", "Engineering Controls -> PPE -> Administrative Controls -> Substitution -> Elimination", "PPE -> Administrative Controls -> Engineering Controls -> Substitution -> Elimination", "Elimination -> PPE -> Administrative Controls -> Engineering Controls -> Substitution"], correct: "Elimination -> Substitution -> Engineering Controls -> Administrative Controls -> PPE" },
-        { q: "Any Near Miss/Incident/ Accident must be reported to DPA within?", a: ["1 hour", "2 hours", "3 hours", "24 hours or immediately if practicable."], correct: "24 hours or immediately if practicable." },
+        { q: "What is the alcohol tolerance level allowed in Maritime industry?", a: ["0.01%", "0.00%", "0.04%", "0.02%"], correct: "0.00%" },
+        { q: "Which is incorrect statement about MLC legislation?", a: ["Any person above 15 years old is allowed to work in maritime industry.", "MLC stands for Maritime Labour Convention", "Every seafarer has the right to a safe and secure workplace", "None of the above"], correct: "Any person above 15 years old is allowed to work in maritime industry." },
+        { q: "In accordance to MLC legislation, which MINIMUM hours of rest for seafarers below is correct?", a: ["14 hours in any 24-hour period", "15 hours in any 24-hour period", "10 hours in any 24-hour period", "12 hours in any 24-hour period"], correct: "10 hours in any 24-hour period" },
+        { q: "Which is incorrect about introduction to HSSE?", a: ["The Company's commitment towards safety & welfare", "Harm to People, Environment, Assets and Reputation", "Ensuring Safe practices in ships operations", "Establishing safeguard against all identified risks"], correct: "Harm to People, Environment, Assets and Reputation" },
+        { q: "HSSE expectation includes:", a: ["Adhered to HSSE Compliances", "Not wearing PPE", "Carry out sounding with improper tools", "Incomplete checklist before work"], correct: "Adhered to HSSE Compliances" },
+        { q: "Who is responsible for your safety?", a: ["Managing Director", "General Manager", "DPA", "Myself"], correct: "Myself" },
+        { q: "Who has the overall responsibility for HSSE in the Company?", a: ["Myself", "DPA", "General Manager", "Managing Director"], correct: "Managing Director" },
+        { q: "What is the frequency of Safety Meeting to be carry out onboard?", a: ["Weekly", "Quarterly", "Monthly", "Yearly"], correct: "Monthly" },
+        { q: "What is the best approach when conducting an intervention?", a: ["Observe, Approach, Discuss, Report, Review", "Approach, Discuss, Report, Review, Observed", "Review, Report, Discuss, Approach, Observed", "Report, Observe, Approach, Discuss, Review"], correct: "Observe, Approach, Discuss, Report, Review" },
+        { q: "Who has the right to Stop Work?", a: ["DPA", "Contractor/Supplier", "Master", "Able Body", "All of the above"], correct: "All of the above" },
+        { q: "Why UDAT to be carried out?", a: ["To identify drug addict", "To terminate employee", "To ensure workplace free from serious threats", "None of the above"], correct: "To ensure workplace free from serious threats" },
+        { q: "Which is true regarding smoking onboard?", a: ["Allowed in 500m zone", "Not allowed at all", "Only allowed at designated area", "Allowed in cabin/washrooms"], correct: "Only allowed at designated area" },
+        { q: "Who should maintain garbage record book onboard?", a: ["Master", "Chief Officer", "Chief Engineer", "2nd Engineer"], correct: "Chief Officer" },
+        { q: "Who is responsible for Safety and Health Programme onboard?", a: ["Master", "Chief Officer", "Chief Engineer", "2nd Engineer"], correct: "Chief Officer" },
+        { q: "What is required in the Cyber Security Policy?", a: ["Protect confidential data", "Keep email safe", "Managing device passwords", "Transferring data securely", "All of the above"], correct: "All of the above" },
+        { q: "Who is responsible for Hours of Work / Rest record?", a: ["Master", "Chief Officer", "DPA", "Seafarers"], correct: "Seafarers" },
         { q: "What is the first action to be taken if an unwanted event occurred onboard?", a: ["Abandon ship", "Inform/call Master", "Inform DPA", "Run"], correct: "Inform/call Master" },
+        { q: "What document required to report an unsafe act and unsafe condition?", a: ["Statement of Fact", "Initial Incident Notification Form", "ACT Form", "Incident Investigation Report"], correct: "ACT Form" },
+        { q: "When should the Shipboard Safety Officer conduct familiarization briefing to new on-signer?", a: ["Immediately", "Within 1 week", "Within 1 hour", "Within 24 hours"], correct: "Immediately" },
         { q: "What is NOT part of effective watch keeping duties?", a: ["Proper handing over of watch", "Watching video in mobile devices", "Call master when in doubt", "Sufficient lookout"], correct: "Watching video in mobile devices" },
-        { q: "Which policy states the
+        { q: "Operations Manager has control and interfere with offshore operations maneuvering?", a: ["True", "False"], correct: "False" },
+        { q: "Management Facility Visit is part of the Company's HSSE commitment?", a: ["False", "True"], correct: "True" },
+        { q: "What documents are required for PTW Application onboard?", a: ["PTW Form, Training Certificate", "PTW Form, Checklist, JHA", "PTW Form, JHA, Checklist, Toolbox Talk Record", "None"], correct: "PTW Form, JHA, Checklist, Toolbox Talk Record" },
+        { q: "Who is the responsible officer in charge for bunkering activity?", a: ["Master", "CSR", "Chief Officer", "Chief Engineer"], correct: "Chief Engineer" },
+        { q: "ISM Code requires Document of Compliance to be audited on what basis?", a: ["Annually", "2 yearly", "5 yearly", "6 monthly"], correct: "Annually" },
+        { q: "Safety Management Certificate (SMC) is endorsement for?", a: ["Office", "Vessel"], correct: "Vessel" },
+        { q: "Any concerns pertaining Handover Checklist Form must be highlighted within?", a: ["1 day", "3 days", "5 days", "7 days"], correct: "7 days" },
+        { q: "The Company operates in which locations?", a: ["Labuan", "Kota Kinabalu", "Miri", "All of the above"], correct: "All of the above" },
+        { q: "Open toe footwear is allowed onboard vessel?", a: ["True", "False"], correct: "False" },
+        { q: "What is the system called for energy isolation process?", a: ["MOPO", "TOTO", "LOTO", "PTW"], correct: "LOTO" },
+        { q: "Which Emergency Alarm below is correct?", a: ["Boat Mustering = 7 short + 1 long", "Fire = Continuous Ringing", "MOB = 3 Long Blasts", "All the above are correct"], correct: "All the above are correct" },
+        { q: "What document reflects the duties of ERT onboard?", a: ["Familiarization Checklist", "MOC", "TBT List", "Muster List"], correct: "Muster List" },
+        { q: "Health monitoring onboard must be carried out and submitted on what basis?", a: ["Weekly/monthly", "Monthly/quarterly", "Daily/weekly", "Daily/monthly"], correct: "Weekly/monthly" },
+        { q: "Where are the Emergency Contact Numbers posted?", a: ["Wharf", "Gangway", "Wheel House/ Passenger Saloon", "Tire Fenders"], correct: "Wheel House/ Passenger Saloon" },
+        { q: "How frequent the shipboard drills need to be conducted?", a: ["Weekly", "Every 2 Weeks", "Monthly", "As per Drill Matrix"], correct: "As per Drill Matrix" },
+        { q: "Which of the followings need to be reported to DPA?", a: ["Incident/Accident", "Near Miss", "Emergency", "All the Above"], correct: "All the Above" },
+        { q: "Any Near Miss/Incident/ Accident must be reported to DPA within?", a: ["1 hour", "2 hours", "3 hours", "24 hours or immediately if practicable."], correct: "24 hours or immediately if practicable." },
+        { q: "Which is NOT True about Company's SMS Section 4?", a: ["Role & Responsibility", "Master overriding Authority", "Forms and Checklist", "Emergency Preparedness"], correct: "Master overriding Authority" },
+        { q: "Which is NOT True about Company's SMS Section 2?", a: ["Chief Officer Roles", "Master Roles", "Procedures for Shipboard Ops", "Incident Notification"], correct: "Chief Officer Roles and Responsibilities" },
+        { q: "Who is the Safety Officer Onboard?", a: ["Master", "Chief Officer", "Chief Engineer", "Able Body"], correct: "Chief Officer" },
+        { q: "On the vessel, crew only allowed to smoke at?", a: ["Bridge Wing", "Toilet", "Designated Smoking Area outside 500m Zone", "All Above"], correct: "Designated Smoking Area when outside of 500m Zone." },
+        { q: "What happens to those violating IOGP Life Saving Rules?", a: ["ACT", "Warning", "Consequence management/termination", "Small Fine"], correct: "Consequence management or possible termination for serious cases." },
+        { q: "What is HEMP?", a: ["Hazard and Effect Management Process", "HSSE and Medical Procedure", "Hazard Environment Procedure", "HSSE Management Procedure"], correct: "Hazard and Effect Management Process" },
+        { q: "What is the objective of HEMP?", a: ["Identify hazards to ALARP", "Assess risks and control measures", "Propose recovery measures", "All of the above"], correct: "All of the above" },
+        { q: "What is the first step in the HEMP process?", a: ["Identify the hazards", "Decide who might be harmed", "Evaluate risks", "Record findings"], correct: "Identify the hazards" },
+        { q: "What is the correct Hierarchy of Control (Most to Least effective)?", a: ["Engineering -> PPE -> Admin", "PPE -> Admin -> Elimination", "Elimination -> Substitution -> Engineering -> Admin -> PPE", "Elimination -> PPE -> Engineering"], correct: "Elimination -> Substitution -> Engineering -> Administrative Controls -> PPE" },
+        { q: "Which Waste Recycling Bin color is incorrect?", a: ["Blue: Paper", "Red: Plastic", "Green: Food Waste", "Yellow: General Waste"], correct: "Yellow: General Waste" },
+        { q: "The following are prohibited items onboard EXCEPT:", a: ["Tattoo Machine", "Food", "Fishing equipment", "Weapons"], correct: "Food" },
+        { q: "The following are prohibited items onboard vessel EXCEPT:", a: ["Gambling Items", "Alcohol", "Drugs", "Hand Phone"], correct: "Hand Phone" },
+        { q: "What is the Company's prescribed BAC limit?", a: ["0.00%", "0.01%", "0.02%", "0.03%"], correct: "0.00%" },
+        { q: "The Company will conduct Drug & Alcohol testing EXCEPT:", a: ["During Operation", "Post-Incident", "Random", "Pre-employment"], correct: "During Operation" },
+        { q: "All of these are PPE except:", a: ["Safety Gloves", "FR Coverall", "Sunglasses", "Safety Helmet"], correct: "Sunglasses" },
+        { q: "When can we still use a fire-retardant coverall?", a: ["Contaminated", "Damaged hardware", "Burn holes", "None of the above"], correct: "None of the above" },
+        { q: "When can we still use safety gloves?", a: ["Contaminated", "Rips/tears", "Shrinkage", "None of the above"], correct: "None of the above" },
+        { q: "How many rules does the IOGP Life-saving rules have?", a: ["9", "12", "15", "18"], correct: "9" },
+        { q: "How many rules does the Petronas ZeTo rules have?", a: ["9", "10", "12", "15"], correct: "10" },
+        { q: "All of these are IOGP Life-Saving Rules Except:", a: ["Hot Work", "Line of Fire", "Working at Height", "Walking"], correct: "Walking" },
+        { q: "Which is NOT an IOGP Life-Saving Rule regarding Work Authorization?", a: ["Confirmed permit", "Authorized to perform", "Position to avoid vehicles", "Hazards are controlled"], correct: "I position myself to avoid vehicles" },
+        { q: "All of these are IOGP Life-Saving Rules Except:", a: ["Bypassing Safety Controls", "Jumping", "Confined Space", "Driving"], correct: "Jumping" },
+        { q: "Which is NOT a step before you start work?", a: ["Start work", "Plan", "Check Equipment", "Final Check"], correct: "Start work" },
+        { q: "What is Step 7 of the Safe Work Process?", a: ["Communication tool", "Tool for work", "Structured safety conversation tool", "Briefing tool"], correct: "A tool to enable structured safety conversation and learning before, during and after work." },
+        { q: "Which are correct for Master's roles & responsibilities?", a: ["i & iv", "i, ii & iii", "ii, iii & iv", "All of the above"], correct: "i, ii & iii" },
+        { q: "Which are correct for Chief Officer's roles?", a: ["i, ii & iv", "i, iii, iv & v", "i, ii, iv & v", "All of the above"], correct: "i, ii, iv & v" },
+        { q: "Which are correct for Chief Engineer's roles?", a: ["i, ii & iii", "i, iii & iv", "i & ii", "All of the above"], correct: "i, ii & iii" },
+        { q: "What are Crew members' roles onboard?", a: ["i, ii & iii", "i & ii", "i, ii & iv", "All of the above"], correct: "All of the above" },
+        { q: "Which is NOT a marine hazard/risk?", a: ["Weather", "Fire", "Land Excavation", "MOB"], correct: "Land Excavation Hazard" },
+        { q: "Which is true about H2S?", a: ["Hydrogen Sulfide / Sour Gas", "Poisonous/Paralyze breathing", "1-20 ppm causes nausea", "All the Above"], correct: "All the Above." },
+        { q: "Which physical property of H2S is wrong?", a: ["Toxic gas", "Flammable", "Rotten egg smell at high concentration", "Heavier than air"], correct: "Rotten egg smell at high concentration" },
+        { q: "Where should you escape during an H2S leak?", a: ["Lower ground/crosswind", "Higher ground/crosswind & upwind", "Higher ground/downwind", "Lower ground/downwind"], correct: "Escape to a location with higher ground level and go crosswind & upwind direction." },
+        { q: "Where can H2S possibly be found in high concentration?", a: ["i, iii & iv", "i & iv", "ii, iii & iv", "All of the above"], correct: "All of the above" },
+        { q: "How to detect H2S in the correct way?", a: ["Personal gas detector", "Smell", "Portable gas detector for concentration", "Helmet sensor"], correct: "Use a portable gas detector to determine the concentration of H2S in an area." },
+        { q: "Which policy states the right of an individual to stop work?", a: ["Safe Navigational", "Stop Work Policy", "Security", "Human Rights"], correct: "Stop Work Policy" },
+        { q: "Which is NOT applicable to Stop Work Policy?", a: ["Master/Crew familiarity", "No harm goal", "Ensure all go home safely", "Stop unsafe act"], correct: "The master and all crews must be familiar with their roles and responsibilities" },
+        { q: "Neopetro ensures physical fitness through which medical policy item?", a: ["Work Life Balance", "Pre-employment Assessment/FTW", "Annual blood test"], correct: "Pre-employment Medical Assessment/FTW" },
+        { q: "Neopetro's Medical Policy consists of:", a: ["Outpatient benefits", "AME recognition", "Pre-employment assessment", "All of the above"], correct: "All of the above" },
+        { q: "Why is Drug & Alcohol Policy viewed seriously?", a: ["Human error", "Threat to safety/security", "Subject to termination", "All of the above"], correct: "All of the above" },
+        { q: "Which is NOT applicable to the Drug & Alcohol Policy?", a: ["Right to search", "Not condone sale", "Employees allowed to consume at work", "Permit designated positions"], correct: "Employees are allowed to consume or possess any alcohol in any work locations" },
+        { q: "What is the main purpose of No Smoking Policy?", a: ["Prevent fire onboard ships", "Prevent fire onboard ships or office", "Health"], correct: "Committed to preventing fire incident onboard our ships or office premises" },
+        { q: "Where are Non-Designated Smoking Areas?", a: ["Cabin, Mess, Galley, Wheelhouse, Paint Store", "Main Deck"], correct: "Cabin, Mess Rooms, Galley, Washrooms, Provision Stores, Wheelhouse, Cold/Freezer Room, Paint Store, Machinery Areas" },
+        { q: "Which is NOT an element of Waste Management Policy?", a: ["Protect environment", "Not necessarily comply with MARPOL", "Prevent incidents", "Promote awareness"], correct: "Not necessarily comply with the MARPOL requirements" },
+        { q: "Why is Anti-Bribery and Corruption Policy established?", a: ["Honest/Ethical manner", "Zero-Tolerance", "Act professionally", "All of the above"], correct: "All of the above" },
+        { q: "Which policy states we conduct business in an honest/ethical manner?", a: ["Human Rights", "Drug/Alcohol", "Anti-Bribery and Corruption", "Waste Management"], correct: "Anti-Bribery and Corruption Policy" },
+        { q: "Which policy protects rights/welfare of stakeholders?", a: ["Human Rights Policy", "Main HSSE", "Medical", "Safe Navigation"], correct: "Human Rights Policy" },
+        { q: "What is the purpose of Cyber Security Policy?", a: ["Defend system", "Defend ship from piracy", "Save battery"], correct: "Recognizes the importance of Cyber Security and committed to defend the Company's system" },
+        { q: "Which is NOT an obligation under Cyber Security Policy?", a: ["Protect Data", "Protect Devices", "Secure Transfer", "Change email password every month"], correct: "Change email password every month" },
+        { q: "Where is the MUSTER STATION located?", a: ["Bridegroom", "Main Deck on vessel", "Engine Room", "Galley"], correct: "Main Deck on vessel v" },
+        { q: "Give 3 examples of Emergency Situation:", a: ["Lifting/Mooring", "MOB/Collision/Grounding", "TV breakdown"], correct: "Man-overboard/collision/grounding" },
+        { q: "How frequent shipboard drills need to be conducted?", a: ["Weekly", "Every 2 Weeks", "Monthly", "As per Drill Matrix"], correct: "As per drill matrix" },
+        { q: "Neopetro has how many policies?", a: ["9", "10", "11", "12"], correct: "11" },
+        { q: "Paracetamol is part of First Aid Kit item?", a: ["True", "False"], correct: "False" },
+        { q: "Medical Chest is a requirement by the company?", a: ["True", "False"], correct: "False" },
+        { q: "All crew shall complete Health declaration form when?", a: ["Within a week", "Health monitoring", "Prior mobilization", "Monthly"], correct: "Prior mobilization" }
+    ];
+
+    let currentCourse = "", selectedQuestions = [], currentQIndex = 0, userAnswers = [], timer, timeLeft = 60, finalScore = 0;
+
+    function hideAll() { 
+        ['briefing-section', 'crew-info-section', 'category-selection', 'sub-selection', 'pdf-viewer', 'exam-section', 'result-section'].forEach(id => {
+            const el = document.getElementById(id);
+            if(el) el.classList.add('hidden');
+        });
+    }
+
+    function showCrewInfo() { 
+        hideAll(); 
+        document.getElementById('crew-info-section').classList.remove('hidden'); 
+        document.getElementById('current_date').value = new Date().toLocaleDateString('en-GB'); 
+    }
+
+    function showCategorySelection() { 
+        hideAll(); 
+        document.getElementById('category-selection').classList.remove('hidden'); 
+    }
+
+    function validateAndProceed() { 
+        const name = document.getElementById('crew_name').value;
+        const pos = document.getElementById('crew_position').value;
+        const vsl = document.getElementById('vessel_name').value;
+        const dat = document.getElementById('sign_on_date').value;
+        if(!name || !pos || !vsl || !dat) return alert("Please fill in all information fields."); 
+        showCategorySelection(); 
+    }
+    
+    function showSubSelection(cat) { 
+        hideAll(); 
+        const grid = document.getElementById('sub-grid'); 
+        document.getElementById('selected-main-category').innerText = cat; 
+        grid.innerHTML = '';
+        trainingData[cat].forEach(sub => { 
+            let b = document.createElement('button'); 
+            b.className = 'btn'; 
+            b.innerText = sub; 
+            b.onclick = () => openPDF(sub); 
+            grid.appendChild(b); 
+        });
+        document.getElementById('sub-selection').classList.remove('hidden');
+    }
+
+    function openPDF(sub) { 
+        hideAll(); 
+        currentCourse = sub; 
+        document.getElementById('current-course-title').innerText = sub;
+        document.getElementById('pdf-box').innerHTML = `<iframe src="${encodeURIComponent(pdfFiles[sub])}"></iframe>`;
+        document.getElementById('pdf-viewer').classList.remove('hidden');
+    }
+
+    function toggleExamBtn() { 
+        document.getElementById('exam-start-btn').disabled = !document.getElementById('read-confirm').checked; 
+    }
+
+    function shuffleArray(array) {
+        let arr = [...array];
+        for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+        }
+        return arr;
+    }
+
+    function startExam() {
+        hideAll(); 
+        document.getElementById('exam-section').classList.remove('hidden');
+        // Randomly pick 25 questions from the bank for the actual assessment
+        selectedQuestions = shuffleArray(masterQuestionBank).slice(0, 25).map(q => {
+            return { ...q, options: shuffleArray(q.a) };
+        });
+        currentQIndex = 0; 
+        userAnswers = []; 
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        clearInterval(timer); 
+        timeLeft = 60; 
+        document.getElementById('timer-count').innerText = timeLeft;
+        document.getElementById('exam-progress').style.width = (currentQIndex / 25 * 100) + "%";
+        
+        const qData = selectedQuestions[currentQIndex];
+        document.getElementById('question-area').innerHTML = `
+            <div class="question-card">
+                <h3>Question ${currentQIndex+1} of 25</h3>
+                <p style="font-size:1.1em; font-weight:500;">${qData.q}</p>
+                <div class="options">
+                    ${qData.options.map((opt) => `
+                        <label><input type="radio" name="q" value="${opt}"> ${opt}</label>
+                    `).join('')}
+                </div>
+            </div>`;
+        timer = setInterval(() => { 
+            timeLeft--; 
+            document.getElementById('timer-count').innerText = timeLeft; 
+            if(timeLeft <= 0) nextQuestion(); 
+        }, 1000);
+    }
+
+    function nextQuestion() {
+        const sel = document.querySelector('input[name="q"]:checked');
+        userAnswers[currentQIndex] = sel ? sel.value : null;
+        if(++currentQIndex < 25) loadQuestion(); else showResults();
+    }
+
+    function showResults() {
+        clearInterval(timer); 
+        hideAll(); 
+        document.getElementById('result-section').classList.remove('hidden');
+        finalScore = 0; 
+        userAnswers.forEach((ans, idx) => { if (ans === selectedQuestions[idx].correct) finalScore++; });
+        const pct = (finalScore/25*100).toFixed(0);
+        const passed = finalScore >= 20;
+        
+        document.getElementById('result-content').innerHTML = `
+            <div style="margin-bottom:20px;">
+                <p>Course: <strong>${currentCourse}</strong></p>
+                <h3>Final Score: ${finalScore} / 25 (${pct}%)</h3>
+            </div>
+            ${passed ? '<p class="pass">✅ ASSESSMENT PASSED</p>' : '<p class="fail">❌ ASSESSMENT FAILED<br><span style="font-size:0.7em">Score 80% or higher to pass.</span></p>'}`;
+        
+        const acts = document.getElementById('result-actions'); 
+        acts.innerHTML = '';
+        if(passed) { 
+            let b = document.createElement('button'); 
+            b.className = 'btn btn-gold'; 
+            b.innerText = "Download Certificate"; 
+            b.onclick = printCert; 
+            acts.appendChild(b); 
+        }
+        let r = document.createElement('button'); 
+        r.className = 'btn'; 
+        r.innerText = "Restart Training"; 
+        r.onclick = () => location.reload(); 
+        acts.appendChild(r);
+    }
+
+    function printCert() {
+        document.getElementById('cert-user-name').innerText = document.getElementById('crew_name').value.toUpperCase();
+        document.getElementById('cert-course-name').innerText = currentCourse;
+        document.getElementById('cert-score').innerText = (finalScore/25*100).toFixed(0);
+        document.getElementById('cert-date').innerText = document.getElementById('current_date').value;
+        window.print();
+    }
+</script>
+</body>
+</html>
