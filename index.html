@@ -32,7 +32,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        /* UPDATED HEADER SECTION */
+        /* HEADER SECTION WITH RESTORED BORDERS */
         .header-section {
             text-align: center;
             margin-bottom: 25px;
@@ -55,13 +55,13 @@
             font-size: 20px;
             font-weight: 600;
             color: #333;
-            margin: 5px 0 15px 0;
+            margin: 10px 0;
         }
 
         .blue-line {
             border: none;
             border-top: 2px solid var(--accent);
-            margin: 10px 0;
+            margin: 0; /* Tight spacing for the border effect */
         }
 
         .hidden { display: none; }
@@ -125,6 +125,8 @@
         <div class="header-section">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
             <div class="company-name">Neopetro Sdn Bhd</div>
+            
+            <hr class="blue-line">
             <div class="training-title">Safety Awareness Training</div>
             <hr class="blue-line">
         </div>
@@ -169,6 +171,7 @@
 </div>
 
 <script>
+    // Initial bank with 5 actual samples
     const questionBank = [
         { q: "What is the primary objective of Safety Awareness Training?", a: ["Compliance", "Accident Prevention", "Speed", "Insurance"], correct: 1 },
         { q: "When should safety equipment be inspected?", a: ["Weekly", "Monthly", "Before every use", "Annually"], correct: 2 },
@@ -177,7 +180,7 @@
         { q: "Which color indicates a mandatory action?", a: ["Red", "Yellow", "Blue", "Green"], correct: 2 }
     ];
 
-    // Ensure 100 questions pool
+    // Auto-fill to 100 questions for the randomizer to function
     if (questionBank.length < 100) {
         for (let i = questionBank.length + 1; i <= 100; i++) {
             questionBank.push({
@@ -195,6 +198,7 @@
         document.getElementById('exam-section').classList.remove('hidden');
         window.scrollTo(0,0);
         
+        // Randomly select 25 questions from the 100
         selectedQuestions = questionBank
             .sort(() => 0.5 - Math.random()) 
             .slice(0, 25); 
