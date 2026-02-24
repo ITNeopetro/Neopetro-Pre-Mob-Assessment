@@ -11,7 +11,7 @@
             --accent: #3498db;
             --success: #27ae60;
             --danger: #e74c3c;
-            --light: #f4f7f6;
+            --light: #ecf0f1;
         }
 
         body {
@@ -28,27 +28,28 @@
             margin: 0 auto;
             background: #fff;
             padding: 30px;
-            border-radius: 4px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
-        /* HEADER SECTION WITH RESTORED BORDERS */
+        /* UPDATED HEADER SECTION FOR TIGHTER SPACING */
         .header-section {
             text-align: center;
             margin-bottom: 25px;
         }
 
         .company-logo {
-            max-width: 220px;
+            max-width: 160px; /* Made slightly smaller */
             height: auto;
-            margin-bottom: 10px;
+            margin-bottom: 2px; /* Reduced space significantly */
+            display: inline-block;
         }
 
         .company-name {
             font-size: 26px;
             font-weight: bold;
             color: #333;
-            margin: 5px 0;
+            margin: 0 0 10px 0; /* Minimal top margin */
         }
 
         .training-title {
@@ -61,49 +62,49 @@
         .blue-line {
             border: none;
             border-top: 2px solid var(--accent);
-            margin: 0; /* Tight spacing for the border effect */
+            margin: 0;
         }
 
         .hidden { display: none; }
 
         .btn {
-            display: block;
-            width: 100%;
-            max-width: 280px;
-            margin: 30px auto 10px auto;
+            display: inline-block;
             background: var(--accent);
             color: #fff;
-            padding: 12px 20px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
+            transition: background 0.3s ease;
             text-align: center;
+            text-decoration: none;
+            margin-top: 20px;
         }
 
         .btn:hover { background: #2980b9; }
 
-        .briefing-content {
-            margin-top: 20px;
-            color: #444;
+        .briefing-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-left: 5px solid var(--accent);
+            margin: 20px 0;
         }
 
         .question-card {
             margin-bottom: 25px;
-            padding: 20px;
-            border: 1px solid #eee;
+            padding: 15px;
+            border: 1px solid #ddd;
             border-radius: 5px;
-            background: #fdfdfd;
         }
 
         .options label {
             display: block;
-            margin: 12px 0;
+            margin: 10px 0;
             cursor: pointer;
-            padding: 12px;
-            background: #f8f9fa;
-            border: 1px solid #eee;
+            padding: 8px;
+            background: #f9f9f9;
             border-radius: 4px;
         }
 
@@ -112,10 +113,17 @@
         .results-box {
             text-align: center;
             padding: 20px;
+            margin-top: 20px;
         }
 
-        .pass { color: var(--success); font-weight: bold; font-size: 1.4em; }
-        .fail { color: var(--danger); font-weight: bold; font-size: 1.4em; }
+        .pass { color: var(--success); font-weight: bold; font-size: 1.2em; }
+        .fail { color: var(--danger); font-weight: bold; font-size: 1.2em; }
+        
+        .progress {
+            font-size: 0.9em;
+            color: #666;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -125,62 +133,66 @@
         <div class="header-section">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
             <div class="company-name">Neopetro Sdn Bhd</div>
-            
             <hr class="blue-line">
             <div class="training-title">Safety Awareness Training</div>
             <hr class="blue-line">
         </div>
         
-        <div class="briefing-content">
-            <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the materials below thoroughly before proceeding to the assessment.</p>
-            
-            <ul style="margin: 20px 0; padding-left: 25px;">
+        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the materials below thoroughly before proceeding to the assessment.</p>
+        
+        <div class="briefing-box">
+            <h3>Key Safety Protocols:</h3>
+            <ul>
                 <li>Always use appropriate PPE for specific tasks.</li>
                 <li>Conduct a Pre-Task Safety Talk (PTST) before starting work.</li>
                 <li>Identify and report all near-misses immediately.</li>
                 <li>Maintain a clean and hazard-free workspace at all times.</li>
             </ul>
-            
-            <p style="text-align: center; color: #7f8c8d; font-size: 0.9em;">
-                Passing marks: 20/25 <br>
-                Questions are randomized from a pool of 100.
-            </p>
         </div>
         
-        <button class="btn" onclick="startExam()">START ASSESSMENT</button>
+        <p style="text-align: center; color: #666; font-size: 0.9em;">
+            Note: The exam consists of 25 random questions. Passing mark is 20/25.
+        </p>
+        
+        <div style="text-align: center;">
+            <button class="btn" onclick="startExam()">I am ready to start the Exam</button>
+        </div>
     </div>
 
     <div id="exam-section" class="hidden">
         <div class="header-section">
-            <div class="company-name">Assessment</div>
+            <div class="company-name">Crew Assessment</div>
             <hr class="blue-line">
         </div>
+        <div class="progress">Question Set: 25 Random Questions</div>
         <div id="quiz-container"></div>
-        <button class="btn" onclick="submitExam()">SUBMIT ANSWERS</button>
+        <div style="text-align: center;">
+            <button class="btn" onclick="submitExam()">Submit My Answers</button>
+        </div>
     </div>
 
     <div id="result-section" class="hidden">
         <div class="header-section">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
-            <div class="company-name">Final Result</div>
+            <div class="company-name">Exam Results</div>
             <hr class="blue-line">
         </div>
         <div id="result-content" class="results-box"></div>
-        <button class="btn" onclick="location.reload()">RESTART SESSION</button>
+        <div style="text-align: center;">
+            <button class="btn" onclick="location.reload()">Restart Training</button>
+        </div>
     </div>
 </div>
 
 <script>
-    // Initial bank with 5 actual samples
     const questionBank = [
-        { q: "What is the primary objective of Safety Awareness Training?", a: ["Compliance", "Accident Prevention", "Speed", "Insurance"], correct: 1 },
-        { q: "When should safety equipment be inspected?", a: ["Weekly", "Monthly", "Before every use", "Annually"], correct: 2 },
-        { q: "Who is responsible for workplace safety?", a: ["Managers", "Employees", "Safety Officers", "Everyone"], correct: 3 },
-        { q: "What should you do if you spot a hazard?", a: ["Ignore it", "Report it immediately", "Fix it later", "Tell a friend"], correct: 1 },
-        { q: "Which color indicates a mandatory action?", a: ["Red", "Yellow", "Blue", "Green"], correct: 2 }
+        { q: "What is the primary color of a 'Danger' sign?", a: ["Red", "Blue", "Green", "Yellow"], correct: 0 },
+        { q: "Who is responsible for safety on deck?", a: ["Captain only", "The Cook", "Everyone", "Safety Officer only"], correct: 2 },
+        { q: "What does PPE stand for?", a: ["Private Personal Equipment", "Personal Protective Equipment", "Personal Professional Entry", "Primary Protection Engine"], correct: 1 },
+        { q: "Where is the assembly point?", a: ["Engine Room", "Deck B", "The Galley", "Bridge"], correct: 1 },
+        { q: "Fire extinguishers should be checked:", a: ["Every 5 years", "Never", "Regularly/Monthly", "Only after a fire"], correct: 2 }
     ];
 
-    // Auto-fill to 100 questions for the randomizer to function
     if (questionBank.length < 100) {
         for (let i = questionBank.length + 1; i <= 100; i++) {
             questionBank.push({
@@ -198,7 +210,6 @@
         document.getElementById('exam-section').classList.remove('hidden');
         window.scrollTo(0,0);
         
-        // Randomly select 25 questions from the 100
         selectedQuestions = questionBank
             .sort(() => 0.5 - Math.random()) 
             .slice(0, 25); 
@@ -228,7 +239,7 @@
     }
 
     function submitExam() {
-        if(!confirm("Submit your assessment?")) return;
+        if(!confirm("Are you sure you want to submit?")) return;
 
         let score = 0;
         selectedQuestions.forEach((item, index) => {
@@ -248,15 +259,14 @@
         resultSection.classList.remove('hidden');
         window.scrollTo(0,0);
 
-        const isPassed = score >= 20;
-        const statusHTML = isPassed ? 
+        const passStatus = score >= 20 ? 
             `<p class="pass">PASSED</p>` : 
-            `<p class="fail">FAILED (Min 20/25 Required)</p>`;
+            `<p class="fail">FAILED (Requires 20/25)</p>`;
 
         resultContent.innerHTML = `
             <h3>Your Score: ${score} / 25</h3>
-            ${statusHTML}
-            <p>Training session completed successfully.</p>
+            ${passStatus}
+            <p>You answered ${score} questions correctly out of 25.</p>
         `;
     }
 </script>
