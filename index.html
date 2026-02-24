@@ -78,20 +78,11 @@
             font-weight: bold;
             transition: all 0.3s ease;
             text-align: center;
-            text-decoration: none;
             margin: 10px 5px;
         }
 
         .btn:hover:not(:disabled) { background: #2980b9; transform: translateY(-2px); }
-        
-        .btn:disabled {
-            background: #bdc3c7;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .btn-secondary { background: #95a5a6; }
-        .btn-secondary:hover { background: #7f8c8d; }
+        .btn:disabled { background: #bdc3c7; cursor: not-allowed; opacity: 0.7; }
 
         .briefing-box {
             background: #f8f9fa;
@@ -100,75 +91,70 @@
             margin: 20px 0;
         }
 
-        /* FIXED PDF VIEWER STYLES (Single Scrollbar Fix) */
-        .pdf-wrapper {
-            position: relative;
-            margin: 20px 0;
-            border: 2px solid #eee;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
+        /* PDF Viewer Container */
         .pdf-container {
             width: 100%;
             height: 600px;
-            overflow-y: auto;
-            background: #525659;
-            -webkit-overflow-scrolling: touch;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
 
         iframe {
             width: 100%;
-            height: 2500px; /* High height to ensure parent container handles scroll */
+            height: 100%;
             border: none;
-            display: block;
-            pointer-events: none; 
         }
 
-        .scroll-notice {
-            background: #fff3cd;
-            color: #856404;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            text-align: center;
+        /* Exam Layout */
+        .timer-box {
+            font-size: 1.2rem;
             font-weight: bold;
-            border: 1px solid #ffeeba;
-        }
-
-        .selection-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
+            color: var(--danger);
+            text-align: right;
+            margin-bottom: 10px;
         }
 
         .question-card {
-            margin-bottom: 25px;
-            padding: 15px;
+            padding: 20px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 8px;
+            background: #fff;
+            min-height: 300px;
         }
 
         .options label {
             display: block;
-            margin: 10px 0;
+            margin: 12px 0;
             cursor: pointer;
-            padding: 10px;
+            padding: 15px;
             background: #f9f9f9;
-            border-radius: 4px;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .options label:hover { background: #eef7ff; }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 10px;
+            background: #eee;
+            border-radius: 5px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--accent);
+            width: 0%;
+            transition: width 0.3s;
         }
 
         .results-box { text-align: center; padding: 20px; }
-        .pass { color: var(--success); font-weight: bold; font-size: 1.2em; }
-        .fail { color: var(--danger); font-weight: bold; font-size: 1.2em; }
-        
-        .progress-text {
-            font-size: 0.9em;
-            color: #666;
-            margin-bottom: 10px;
-            text-align: center;
-        }
+        .pass { color: var(--success); font-weight: bold; font-size: 1.5em; }
+        .fail { color: var(--danger); font-weight: bold; font-size: 1.5em; }
     </style>
 </head>
 <body>
@@ -181,75 +167,52 @@
             <div class="training-title">Safety Awareness Training</div>
             <hr class="blue-line">
         </div>
-        
-        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the training materials before proceeding to the assessment.</p>
-        
+        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety briefing. Review all materials before the timed assessment.</p>
         <div class="briefing-box">
             <h3>System Instructions:</h3>
             <ul>
                 <li>Select your designated training category.</li>
-                <li>Read through all presentation slides (PDF).</li>
-                <li>Complete the assessment with at least 80% marks.</li>
+                <li>Review the PDF document thoroughly.</li>
+                <li>Exam is timed: <strong>1 minute per question</strong>.</li>
+                <li>Unanswered questions count as 0 marks.</li>
             </ul>
         </div>
-        
-        <div style="text-align: center;">
-            <button class="btn" onclick="showCategorySelection()">Next</button>
-        </div>
+        <div style="text-align: center;"><button class="btn" onclick="showCategorySelection()">Next</button></div>
     </div>
 
     <div id="category-selection" class="hidden">
-        <div class="header-section">
-            <div class="company-name">Select Training Type</div>
-            <hr class="blue-line">
-        </div>
-        <div class="selection-grid">
+        <div class="header-section"><div class="company-name">Select Training Type</div><hr class="blue-line"></div>
+        <div class="selection-grid" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
             <button class="btn" onclick="openPDF('SAT-A2')">Safety Awareness Training (SAT A)</button>
             <button class="btn" onclick="showSubSelection('SAT B')">Safety Awareness Training (SAT B)</button>
         </div>
     </div>
 
     <div id="sub-selection" class="hidden">
-        <div class="header-section">
-            <div class="company-name" id="selected-main-category">Category</div>
-            <hr class="blue-line">
-        </div>
-        <div id="sub-grid" class="selection-grid"></div>
-        <div style="text-align: center; margin-top: 20px;">
-            <button class="btn btn-secondary" onclick="showCategorySelection()">Back</button>
-        </div>
+        <div class="header-section"><div class="company-name" id="selected-main-category">Category</div><hr class="blue-line"></div>
+        <div id="sub-grid" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;"></div>
+        <div style="text-align: center; margin-top: 20px;"><button class="btn" style="background:#95a5a6" onclick="showCategorySelection()">Back</button></div>
     </div>
 
     <div id="pdf-viewer" class="hidden">
-        <div class="header-section">
-            <div class="company-name" id="current-course-title">Training Materials</div>
-            <hr class="blue-line">
-        </div>
-        
-        <div id="scroll-warning" class="scroll-notice">
-            ⚠️ Please scroll to the bottom of the document to unlock the Exam button.
-        </div>
-
-        <div class="pdf-wrapper">
-            <div class="pdf-container" id="pdf-box" onscroll="checkScroll(this)">
-                </div>
-        </div>
-
-        <div style="text-align: center;">
-            <button class="btn btn-secondary" onclick="showCategorySelection()">Cancel</button>
-            <button class="btn" id="exam-start-btn" disabled onclick="startExam()">Start Assessment</button>
+        <div class="header-section"><div class="company-name" id="current-course-title">Training Materials</div><hr class="blue-line"></div>
+        <div class="pdf-container" id="pdf-box"></div>
+        <div style="text-align: center; margin-top: 10px;">
+            <label style="cursor: pointer; font-weight: bold;">
+                <input type="checkbox" id="read-confirm" onclick="toggleExamBtn()"> I have completed reading the material.
+            </label>
+            <br>
+            <button class="btn" id="exam-start-btn" disabled onclick="startExam()">Start Timed Assessment</button>
         </div>
     </div>
 
     <div id="exam-section" class="hidden">
-        <div class="header-section">
-            <div class="company-name">Assessment</div>
-            <hr class="blue-line">
-        </div>
-        <div class="progress-text">Question Set: 25 Random Questions</div>
-        <div id="quiz-container"></div>
-        <div style="text-align: center;">
-            <button class="btn" onclick="submitExam()">Submit My Answers</button>
+        <div class="header-section"><div class="company-name">Assessment</div><hr class="blue-line"></div>
+        <div class="progress-bar-container"><div class="progress-bar-fill" id="exam-progress"></div></div>
+        <div class="timer-box">Time Remaining: <span id="timer-count">60</span>s</div>
+        <div id="question-area"></div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button class="btn" id="next-q-btn" onclick="nextQuestion()">Next Question</button>
         </div>
     </div>
 
@@ -260,38 +223,33 @@
             <hr class="blue-line">
         </div>
         <div id="result-content" class="results-box"></div>
-        <div style="text-align: center;">
-            <button class="btn" onclick="location.reload()">Restart Training</button>
-        </div>
+        <div style="text-align: center;"><button class="btn" onclick="location.reload()">Restart</button></div>
     </div>
 </div>
 
 <script>
-    // SAT-A1 Removed
-    const trainingData = {
-        'SAT A': ['SAT-A2'],
-        'SAT B': ['SAT-B1', 'SAT-B2']
-    };
+    // Configuration and Data
+    const trainingData = { 'SAT A': ['SAT-A2'], 'SAT B': ['SAT-B1', 'SAT-B2'] };
+    const pdfFiles = { 'SAT-A2': 'SAT A2.pdf', 'SAT-B1': 'SAT B1.pdf', 'SAT-B2': 'SAT B2.pdf' };
 
-    const pdfFiles = {
-        'SAT-A2': 'SAT A2.pdf',
-        'SAT-B1': 'SAT B1.pdf',
-        'SAT-B2': 'SAT B2.pdf'
-    };
-
+    // Placeholder Bank - Replace with real questions as needed
     const questionBank = [];
     for (let i = 1; i <= 100; i++) {
         questionBank.push({
-            q: "Safety Awareness Question #" + i + ": What is the primary safety rule at NEOPETRO?",
-            a: ["Work as fast as possible", "Follow all safety protocols and PPE rules", "Ignore minor hazards", "Report only major accidents"],
+            q: "Safety Awareness Question #" + i + ": What is the standard procedure if a hazard is identified?",
+            a: ["Ignore it", "Report to supervisor immediately", "Wait for someone else to fix it", "Leave the site"],
             correct: 1
         });
     }
 
     let currentCourse = "";
     let selectedQuestions = [];
-    let hasRead = false;
+    let currentQIndex = 0;
+    let userAnswers = [];
+    let timer;
+    let timeLeft = 60;
 
+    // Navigation logic
     function hideAll() {
         ['briefing-section', 'category-selection', 'sub-selection', 'pdf-viewer', 'exam-section', 'result-section'].forEach(id => {
             document.getElementById(id).classList.add('hidden');
@@ -308,7 +266,6 @@
         const subGrid = document.getElementById('sub-grid');
         document.getElementById('selected-main-category').innerText = category;
         subGrid.innerHTML = '';
-        
         trainingData[category].forEach(sub => {
             const btn = document.createElement('button');
             btn.className = 'btn';
@@ -322,93 +279,94 @@
     function openPDF(sub) {
         hideAll();
         currentCourse = sub;
-        hasRead = false; 
-        
-        const examBtn = document.getElementById('exam-start-btn');
-        examBtn.disabled = true;
-        
-        const notice = document.getElementById('scroll-warning');
-        notice.innerHTML = "⚠️ Please scroll to the bottom of the document to unlock the Exam button.";
-        notice.style.background = "#fff3cd";
-        notice.style.color = "#856404";
-        notice.classList.remove('hidden');
-        
+        document.getElementById('read-confirm').checked = false;
+        document.getElementById('exam-start-btn').disabled = true;
         document.getElementById('current-course-title').innerText = sub;
-        
-        const pdfBox = document.getElementById('pdf-box');
-        const encodedFile = encodeURIComponent(pdfFiles[sub]);
-        
-        pdfBox.innerHTML = `<iframe src="${encodedFile}#toolbar=0&navpanes=0"></iframe>`;
-        
+        document.getElementById('pdf-box').innerHTML = `<iframe src="${encodeURIComponent(pdfFiles[sub])}"></iframe>`;
         document.getElementById('pdf-viewer').classList.remove('hidden');
-        pdfBox.scrollTop = 0; 
     }
 
-    function checkScroll(el) {
-        if (el.scrollHeight - el.scrollTop <= el.clientHeight + 100) {
-            if (!hasRead) {
-                hasRead = true;
-                document.getElementById('exam-start-btn').disabled = false;
-                const notice = document.getElementById('scroll-warning');
-                notice.innerHTML = "✅ Document Review Complete. You may now start the assessment.";
-                notice.style.background = "#d4edda";
-                notice.style.color = "#155724";
+    function toggleExamBtn() {
+        document.getElementById('exam-start-btn').disabled = !document.getElementById('read-confirm').checked;
+    }
+
+    // Exam Engine
+    function startExam() {
+        hideAll();
+        document.getElementById('exam-section').classList.remove('hidden');
+        // Randomize 25 questions
+        selectedQuestions = questionBank.sort(() => 0.5 - Math.random()).slice(0, 25);
+        currentQIndex = 0;
+        userAnswers = [];
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        clearInterval(timer);
+        timeLeft = 60;
+        document.getElementById('timer-count').innerText = timeLeft;
+        
+        // Progress bar update
+        const progress = ((currentQIndex) / selectedQuestions.length) * 100;
+        document.getElementById('exam-progress').style.width = progress + "%";
+
+        const qData = selectedQuestions[currentQIndex];
+        const area = document.getElementById('question-area');
+        area.innerHTML = `
+            <div class="question-card">
+                <h3>Question ${currentQIndex + 1} of 25</h3>
+                <p style="font-size: 1.2rem; font-weight: 500;">${qData.q}</p>
+                <div class="options">
+                    ${qData.a.map((opt, i) => `
+                        <label><input type="radio" name="activeQ" value="${i}"> ${opt}</label>
+                    `).join('')}
+                </div>
+            </div>
+        `;
+
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-count').innerText = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                nextQuestion(); // Auto-skip on timeout
             }
+        }, 1000);
+    }
+
+    function nextQuestion() {
+        const selected = document.querySelector('input[name="activeQ"]:checked');
+        // Record answer: user selection or -1 for timeout/none
+        userAnswers[currentQIndex] = selected ? parseInt(selected.value) : -1;
+
+        currentQIndex++;
+        if (currentQIndex < selectedQuestions.length) {
+            loadQuestion();
+        } else {
+            clearInterval(timer);
+            showResults();
         }
     }
 
-    function startExam() {
-        if(!confirm("Ready to start the assessment?")) return;
-        hideAll();
-        document.getElementById('exam-section').classList.remove('hidden');
-        window.scrollTo(0,0);
-        
-        selectedQuestions = questionBank
-            .sort(() => 0.5 - Math.random()) 
-            .slice(0, 25); 
-
-        renderQuiz();
-    }
-
-    function renderQuiz() {
-        const container = document.getElementById('quiz-container');
-        container.innerHTML = '';
-        selectedQuestions.forEach((item, index) => {
-            const qDiv = document.createElement('div');
-            qDiv.className = 'question-card';
-            qDiv.innerHTML = `
-                <p><strong>${index + 1}. ${item.q}</strong></p>
-                <div class="options">
-                    ${item.a.map((opt, i) => `
-                        <label><input type="radio" name="q${index}" value="${i}"> ${opt}</label>
-                    `).join('')}
-                </div>
-            `;
-            container.appendChild(qDiv);
-        });
-    }
-
-    function submitExam() {
-        if(!confirm("Submit answers?")) return;
-        let score = 0;
-        selectedQuestions.forEach((item, index) => {
-            const sel = document.querySelector(`input[name="q${index}"]:checked`);
-            if (sel && parseInt(sel.value) === item.correct) score++;
-        });
-        showResults(score);
-    }
-
-    function showResults(score) {
+    function showResults() {
         hideAll();
         const res = document.getElementById('result-section');
         const cont = document.getElementById('result-content');
         res.classList.remove('hidden');
-        const pass = score >= 20;
+        
+        let score = 0;
+        userAnswers.forEach((ans, idx) => {
+            if (ans === selectedQuestions[idx].correct) score++;
+        });
+
+        const pass = score >= 20; // 80% passing grade
         cont.innerHTML = `
-            <h3>Module: ${currentCourse}</h3>
-            <h4>Your Score: ${score} / 25</h4>
-            ${pass ? '<p class="pass">PASSED</p>' : '<p class="fail">FAILED (Min 20/25 required)</p>'}
-            <p>Training session completed.</p>
+            <div style="margin-bottom:20px;">
+                <h3>Module: ${currentCourse}</h3>
+                <p style="font-size: 1.4rem;">Final Score: <strong>${score} / 25</strong></p>
+                <p>Percentage: ${(score/25*100).toFixed(0)}%</p>
+            </div>
+            ${pass ? '<p class="pass">✅ PASSED</p>' : '<p class="fail">❌ FAILED<br><span style="font-size:0.8em">Minimum 20/25 required to pass.</span></p>'}
         `;
     }
 </script>
