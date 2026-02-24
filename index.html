@@ -96,7 +96,7 @@
         .pass { color: var(--success); font-weight: bold; font-size: 1.5em; }
         .fail { color: var(--danger); font-weight: bold; font-size: 1.5em; }
 
-        /* CERTIFICATE STYLES WITH 50% WATERMARK */
+        /* CERTIFICATE STYLES WITH UPDATED FADED WATERMARK */
         #certificate-template {
             width: 850px;
             height: 600px;
@@ -121,14 +121,14 @@
             flex-wrap: wrap;
             justify-content: center;
             align-content: center;
-            font-size: 40px;
+            font-size: 22px; /* Smaller font */
             font-weight: bold;
-            color: rgba(150, 150, 150, 0.5); /* 50% transparency */
+            color: rgba(180, 180, 180, 0.15); /* Much more faded transparency */
             transform: rotate(-35deg);
             z-index: 0;
             pointer-events: none;
-            line-height: 150px;
-            letter-spacing: 10px;
+            line-height: 100px; /* Tighter line spacing for smaller font */
+            letter-spacing: 6px;
             white-space: pre;
         }
 
@@ -142,6 +142,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            background: transparent;
         }
 
         .cert-header { font-size: 38px; font-weight: bold; color: var(--secondary); letter-spacing: 2px; }
@@ -280,16 +281,16 @@
 
 <div id="certificate-template" class="hidden">
     <div class="watermark-overlay">
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
-NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
+NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     </div>
     <div class="cert-inner">
         <img src="NEOPETRO LOGO.png" style="width: 120px; margin-bottom: 10px;">
@@ -311,7 +312,6 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     const trainingData = { 'SAT A': ['SAT-A2'], 'SAT B': ['SAT-B1', 'SAT-B2'] };
     const pdfFiles = { 'SAT-A2': 'SAT A2.pdf', 'SAT-B1': 'SAT B1.pdf', 'SAT-B2': 'SAT B2.pdf' };
     
-    // FULL QUESTION BANK (from document) 
     const masterQuestionBank = [
         { q: "Who has the right to Stop Work?", a: ["Master", "Contractor/Supplier", "DPA", "All of the above"], correct: "All of the above" },
         { q: "What is the system called for energy isolation process?", a: ["MOPO", "TOTO", "LOTO", "PTW"], correct: "LOTO" },
@@ -329,125 +329,4 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         { q: "Any Near Miss/Incident/ Accident must be reported to DPA within?", a: ["1 hour", "2 hours", "3 hours", "24 hours or immediately if practicable."], correct: "24 hours or immediately if practicable." },
         { q: "What is the first action to be taken if an unwanted event occurred onboard?", a: ["Abandon ship", "Inform/call Master", "Inform DPA", "Run"], correct: "Inform/call Master" },
         { q: "What is NOT part of effective watch keeping duties?", a: ["Proper handing over of watch", "Watching video in mobile devices", "Call master when in doubt", "Sufficient lookout"], correct: "Watching video in mobile devices" },
-        { q: "Which policy states the right of an individual to stop work?", a: ["Safe Navigational Policy", "Stop Work Policy", "Security Policy", "Human Rights Policy"], correct: "Stop Work Policy" },
-        { q: "On the vessel, crew only allowed to smoke at?", a: ["Bridge Wing", "Toilet and Bathroom", "Designated Smoking Area when outside of 500m Zone", "All of the above"], correct: "Designated Smoking Area when outside of 500m Zone" },
-        { q: "What is the first step in the hazard and effect management process (HEMP)?", a: ["Identify the hazards", "Decide who might be harmed and how", "Evaluate the risks and decide on precautions", "Record your findings and implement them"], correct: "Identify the hazards" },
-        { q: "In accordance to MLC legislation, the MINIMUM hours of rest for seafarers is?", a: ["14 hours", "15 hours", "10 hours", "12 hours"], correct: "10 hours" },
-        { q: "Who is the Safety Officer Onboard?", a: ["Master", "Chief Officer", "Chief Engineer", "Able Body"], correct: "Chief Officer" },
-        { q: "The following shows the prohibited items to bring onboard except:", a: ["Tattoo Machine", "Food", "Fishing equipment", "Weapons"], correct: "Food" },
-        { q: "Under the Cyber Security Policy, below are what all employees are obligated to do, except:", a: ["Protect Confidential Data", "Protect Personnel and Company Devices", "Transferring Data Securely", "Change email password every month"], correct: "Change email password every month" },
-        { q: "Who is responsible for Hours of Work / Rest record?", a: ["Master", "Chief Officer", "DPA", "Seafarers"], correct: "Seafarers" },
-        { q: "How frequent the shipboard drills need to be conducted?", a: ["Every Week", "Every 2 Week", "Monthly", "As per Drill Matrix"], correct: "As per Drill Matrix" }
-    ];
-
-    let currentCourse = "", selectedQuestions = [], currentQIndex = 0, userAnswers = [], timer, timeLeft = 60, finalScore = 0;
-
-    function hideAll() { 
-        ['briefing-section', 'crew-info-section', 'category-selection', 'sub-selection', 'pdf-viewer', 'exam-section', 'result-section'].forEach(id => {
-            document.getElementById(id).classList.add('hidden');
-        });
-    }
-
-    function showCrewInfo() { 
-        hideAll(); 
-        document.getElementById('crew-info-section').classList.remove('hidden'); 
-        document.getElementById('current_date').value = new Date().toLocaleDateString('en-GB'); 
-    }
-
-    function showCategorySelection() { hideAll(); document.getElementById('category-selection').classList.remove('hidden'); }
-
-    function validateAndProceed() { 
-        const name = document.getElementById('crew_name').value;
-        if(!name) return alert("Please enter your full name."); 
-        showCategorySelection(); 
-    }
-    
-    function showSubSelection(cat) { 
-        hideAll(); const grid = document.getElementById('sub-grid'); document.getElementById('selected-main-category').innerText = cat; grid.innerHTML = '';
-        trainingData[cat].forEach(sub => { let b = document.createElement('button'); b.className = 'btn'; b.innerText = sub; b.onclick = () => openPDF(sub); grid.appendChild(b); });
-        document.getElementById('sub-selection').classList.remove('hidden');
-    }
-
-    function openPDF(sub) { 
-        hideAll(); currentCourse = sub; 
-        document.getElementById('current-course-title').innerText = sub;
-        document.getElementById('pdf-box').innerHTML = `<iframe src="${encodeURIComponent(pdfFiles[sub])}"></iframe>`;
-        document.getElementById('pdf-viewer').classList.remove('hidden');
-    }
-
-    function toggleExamBtn() { document.getElementById('exam-start-btn').disabled = !document.getElementById('read-confirm').checked; }
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-        return array;
-    }
-
-    function startExam() {
-        hideAll(); document.getElementById('exam-section').classList.remove('hidden');
-        // Shuffle and prep questions
-        selectedQuestions = masterQuestionBank.map(q => {
-            const shuffledOptions = shuffleArray([...q.a]);
-            return { ...q, options: shuffledOptions };
-        });
-        currentQIndex = 0; userAnswers = []; loadQuestion();
-    }
-
-    function loadQuestion() {
-        clearInterval(timer); timeLeft = 60; document.getElementById('timer-count').innerText = timeLeft;
-        document.getElementById('exam-progress').style.width = (currentQIndex / 25 * 100) + "%";
-        const qData = selectedQuestions[currentQIndex];
-        document.getElementById('question-area').innerHTML = `
-            <div class="question-card">
-                <h3>Question ${currentQIndex+1} of 25</h3>
-                <p style="font-size:1.1em; font-weight:500;">${qData.q}</p>
-                <div class="options">
-                    ${qData.options.map((opt, i) => `
-                        <label><input type="radio" name="q" value="${opt}"> ${opt}</label>
-                    `).join('')}
-                </div>
-            </div>`;
-        timer = setInterval(() => { timeLeft--; document.getElementById('timer-count').innerText = timeLeft; if(timeLeft <= 0) nextQuestion(); }, 1000);
-    }
-
-    function nextQuestion() {
-        const sel = document.querySelector('input[name="q"]:checked');
-        userAnswers[currentQIndex] = sel ? sel.value : null;
-        if(++currentQIndex < 25) loadQuestion(); else showResults();
-    }
-
-    function showResults() {
-        clearInterval(timer); hideAll(); document.getElementById('result-section').classList.remove('hidden');
-        finalScore = 0; 
-        userAnswers.forEach((ans, idx) => { if (ans === selectedQuestions[idx].correct) finalScore++; });
-        const pct = (finalScore/25*100).toFixed(0);
-        const passed = finalScore >= 20;
-        
-        document.getElementById('result-content').innerHTML = `
-            <div style="margin-bottom:20px;">
-                <p>Course: <strong>${currentCourse}</strong></p>
-                <h3>Final Score: ${finalScore} / 25 (${pct}%)</h3>
-            </div>
-            ${passed ? '<p class="pass">✅ ASSESSMENT PASSED</p>' : '<p class="fail">❌ ASSESSMENT FAILED<br><span style="font-size:0.7em">Score 80% or higher to pass.</span></p>'}`;
-        
-        const acts = document.getElementById('result-actions'); acts.innerHTML = '';
-        if(passed) { 
-            let b = document.createElement('button'); b.className = 'btn btn-gold'; b.innerText = "Download Certificate"; b.onclick = printCert; acts.appendChild(b); 
-        }
-        let r = document.createElement('button'); r.className = 'btn'; r.innerText = "Restart Training"; r.onclick = () => location.reload(); acts.appendChild(r);
-    }
-
-    function printCert() {
-        document.getElementById('cert-user-name').innerText = document.getElementById('crew_name').value.toUpperCase();
-        document.getElementById('cert-course-name').innerText = currentCourse;
-        document.getElementById('cert-score').innerText = (finalScore/25*100).toFixed(0);
-        document.getElementById('cert-date').innerText = document.getElementById('current_date').value;
-        window.print();
-    }
-</script>
-</body>
-</html>
-
-
+        { q: "Which policy states the
