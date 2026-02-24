@@ -11,13 +11,13 @@
             --accent: #3498db;
             --success: #27ae60;
             --danger: #e74c3c;
-            --light: #f8f9fa;
+            --light: #f4f7f6;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            background-color: #f0f2f5;
+            background-color: var(--light);
             color: var(--primary);
             margin: 0;
             padding: 20px;
@@ -27,41 +27,40 @@
             max-width: 800px;
             margin: 0 auto;
             background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        /* HEADER STYLING MATCHING IMAGE */
-        .welcome-header {
+        /* UPDATED HEADER SECTION */
+        .header-section {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .company-logo {
             max-width: 220px;
             height: auto;
-            display: block;
-            margin: 0 auto 15px auto;
+            margin-bottom: 10px;
         }
 
         .company-name {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
             color: #333;
-            margin: 10px 0;
-        }
-
-        .divider {
-            border: none;
-            border-top: 2px solid #3498db;
-            margin: 15px 0;
+            margin: 5px 0;
         }
 
         .training-title {
             font-size: 20px;
             font-weight: 600;
             color: #333;
+            margin: 5px 0 15px 0;
+        }
+
+        .blue-line {
+            border: none;
+            border-top: 2px solid var(--accent);
             margin: 10px 0;
         }
 
@@ -70,41 +69,41 @@
         .btn {
             display: block;
             width: 100%;
-            max-width: 300px;
-            margin: 30px auto 0 auto;
+            max-width: 280px;
+            margin: 30px auto 10px auto;
             background: var(--accent);
             color: #fff;
             padding: 12px 20px;
             border: none;
-            border-radius: 5px;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-            transition: background 0.3s ease;
             text-align: center;
         }
 
         .btn:hover { background: #2980b9; }
 
-        .briefing-box {
-            background: #ffffff;
-            padding: 10px 0;
-            margin: 20px 0;
+        .briefing-content {
+            margin-top: 20px;
+            color: #444;
         }
 
         .question-card {
             margin-bottom: 25px;
-            padding: 15px;
-            border: 1px solid #ddd;
+            padding: 20px;
+            border: 1px solid #eee;
             border-radius: 5px;
+            background: #fdfdfd;
         }
 
         .options label {
             display: block;
-            margin: 10px 0;
+            margin: 12px 0;
             cursor: pointer;
-            padding: 10px;
-            background: #f9f9f9;
+            padding: 12px;
+            background: #f8f9fa;
+            border: 1px solid #eee;
             border-radius: 4px;
         }
 
@@ -115,62 +114,54 @@
             padding: 20px;
         }
 
-        .pass { color: var(--success); font-weight: bold; font-size: 1.5em; }
-        .fail { color: var(--danger); font-weight: bold; font-size: 1.5em; }
-        
-        .progress {
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: right;
-            color: var(--secondary);
-        }
+        .pass { color: var(--success); font-weight: bold; font-size: 1.4em; }
+        .fail { color: var(--danger); font-weight: bold; font-size: 1.4em; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="briefing-section">
-        <div class="welcome-header">
+        <div class="header-section">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
             <div class="company-name">Neopetro Sdn Bhd</div>
-            <hr class="divider">
             <div class="training-title">Safety Awareness Training</div>
-            <hr class="divider">
+            <hr class="blue-line">
         </div>
         
-        <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the materials below thoroughly before proceeding to the assessment.</p>
-        
-        <div class="briefing-box">
-            <ul style="padding-left: 20px;">
-                <li>Ensure all safety gear (PPE) is inspected before starting a shift.</li>
-                <li>Familiarize yourself with the location of emergency shut-off valves.</li>
-                <li>Zero-tolerance policy for safety protocol bypasses.</li>
-                <li>Communication via designated channels is mandatory at all times.</li>
+        <div class="briefing-content">
+            <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the materials below thoroughly before proceeding to the assessment.</p>
+            
+            <ul style="margin: 20px 0; padding-left: 25px;">
+                <li>Always use appropriate PPE for specific tasks.</li>
+                <li>Conduct a Pre-Task Safety Talk (PTST) before starting work.</li>
+                <li>Identify and report all near-misses immediately.</li>
+                <li>Maintain a clean and hazard-free workspace at all times.</li>
             </ul>
+            
+            <p style="text-align: center; color: #7f8c8d; font-size: 0.9em;">
+                Passing marks: 20/25 <br>
+                Questions are randomized from a pool of 100.
+            </p>
         </div>
-        
-        <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 30px;">
-            Note: The exam consists of 25 random questions. Passing mark is 20/25.
-        </p>
         
         <button class="btn" onclick="startExam()">START ASSESSMENT</button>
     </div>
 
     <div id="exam-section" class="hidden">
-        <div class="welcome-header">
+        <div class="header-section">
             <div class="company-name">Assessment</div>
-            <hr class="divider">
+            <hr class="blue-line">
         </div>
-        <div class="progress">Question Set: 25 Random Items</div>
         <div id="quiz-container"></div>
         <button class="btn" onclick="submitExam()">SUBMIT ANSWERS</button>
     </div>
 
     <div id="result-section" class="hidden">
-        <div class="welcome-header">
+        <div class="header-section">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
             <div class="company-name">Final Result</div>
-            <hr class="divider">
+            <hr class="blue-line">
         </div>
         <div id="result-content" class="results-box"></div>
         <button class="btn" onclick="location.reload()">RESTART SESSION</button>
@@ -178,21 +169,20 @@
 </div>
 
 <script>
-    // 100 QUESTION BANK
     const questionBank = [
-        { q: "What is the most important factor in NEOPETRO operations?", a: ["Speed", "Safety", "Cost", "Quantity"], correct: 1 },
-        { q: "Which PPE is mandatory for deck operations?", a: ["Safety Boots", "Sunglasses", "Casual Wear", "None"], correct: 0 },
-        { q: "Where can you find the Emergency Action Plan?", a: ["In the Galley", "On the Bridge", "At every safety station", "In the personal quarters"], correct: 2 },
-        { q: "If a spill is detected, what is the first step?", a: ["Ignore it", "Report and Contain", "Go home", "Clean it later"], correct: 1 },
-        { q: "What color code is used for flammable materials?", a: ["Blue", "Green", "Red", "White"], correct: 2 }
+        { q: "What is the primary objective of Safety Awareness Training?", a: ["Compliance", "Accident Prevention", "Speed", "Insurance"], correct: 1 },
+        { q: "When should safety equipment be inspected?", a: ["Weekly", "Monthly", "Before every use", "Annually"], correct: 2 },
+        { q: "Who is responsible for workplace safety?", a: ["Managers", "Employees", "Safety Officers", "Everyone"], correct: 3 },
+        { q: "What should you do if you spot a hazard?", a: ["Ignore it", "Report it immediately", "Fix it later", "Tell a friend"], correct: 1 },
+        { q: "Which color indicates a mandatory action?", a: ["Red", "Yellow", "Blue", "Green"], correct: 2 }
     ];
 
-    // Ensure 100 questions exist for selection logic
+    // Ensure 100 questions pool
     if (questionBank.length < 100) {
         for (let i = questionBank.length + 1; i <= 100; i++) {
             questionBank.push({
-                q: "Safety Awareness Question #" + i + ": Standard Operating Procedure Check.",
-                a: ["Option A", "Correct Answer", "Option C", "Option D"],
+                q: "Safety Awareness Knowledge Check #" + i + ": Select the best safety practice.",
+                a: ["Unsafe Action", "Standard Safe Procedure", "Short-cut Procedure", "Ignore Rule"],
                 correct: 1
             });
         }
@@ -234,7 +224,7 @@
     }
 
     function submitExam() {
-        if(!confirm("Are you sure you want to submit?")) return;
+        if(!confirm("Submit your assessment?")) return;
 
         let score = 0;
         selectedQuestions.forEach((item, index) => {
@@ -255,15 +245,14 @@
         window.scrollTo(0,0);
 
         const isPassed = score >= 20;
-        const passStatus = isPassed ? 
-            `<p class="pass">CONGRATULATIONS! YOU PASSED.</p>` : 
-            `<p class="fail">DID NOT PASS (Minimum 20/25 Required)</p>`;
+        const statusHTML = isPassed ? 
+            `<p class="pass">PASSED</p>` : 
+            `<p class="fail">FAILED (Min 20/25 Required)</p>`;
 
         resultContent.innerHTML = `
-            <h3>Score: ${score} / 25</h3>
-            ${passStatus}
-            <p>You correctly answered ${score} out of 25 questions.</p>
-            <p>${isPassed ? 'You have successfully completed the training module.' : 'Please review the materials and try again.'}</p>
+            <h3>Your Score: ${score} / 25</h3>
+            ${statusHTML}
+            <p>Training session completed successfully.</p>
         `;
     }
 </script>
