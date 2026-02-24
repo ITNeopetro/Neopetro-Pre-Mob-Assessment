@@ -22,15 +22,35 @@
             color: var(--primary);
             margin: 0;
             padding: 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Background Image with 10% Opacity */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('Screenshot 2024-04-19 075811.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.10; /* 10% Opacity */
+            z-index: -1; /* Keeps it behind the content */
         }
 
         .container {
             max-width: 900px;
             margin: 0 auto;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.95); /* Slight transparency to show background through */
             padding: 30px;
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 1;
         }
 
         .header-section { text-align: center; margin-bottom: 25px; }
@@ -149,6 +169,7 @@
         .sig-box { border-top: 1px solid #333; width: 200px; font-size: 14px; padding-top: 5px; }
 
         @media print {
+            body::before { display: none; }
             body { background: none; padding: 0; margin: 0; }
             .container { display: none !important; }
             #certificate-template {
@@ -474,7 +495,6 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     function startExam() {
         hideAll(); 
         document.getElementById('exam-section').classList.remove('hidden');
-        // Randomly pick 25 questions from the bank for the actual assessment
         selectedQuestions = shuffleArray(masterQuestionBank).slice(0, 25).map(q => {
             return { ...q, options: shuffleArray(q.a) };
         });
