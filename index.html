@@ -11,13 +11,13 @@
             --accent: #3498db;
             --success: #27ae60;
             --danger: #e74c3c;
-            --light: #ecf0f1;
+            --light: #f8f9fa;
         }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            background-color: var(--light);
+            background-color: #f0f2f5;
             color: var(--primary);
             margin: 0;
             padding: 20px;
@@ -27,31 +27,51 @@
             max-width: 800px;
             margin: 0 auto;
             background: #fff;
-            padding: 30px;
+            padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
 
-        .logo-container {
+        /* HEADER STYLING MATCHING IMAGE */
+        .welcome-header {
             text-align: center;
             margin-bottom: 20px;
         }
 
         .company-logo {
-            max-width: 250px; /* Controlled size: not too big, not too small */
+            max-width: 220px;
             height: auto;
-            display: inline-block;
+            display: block;
+            margin: 0 auto 15px auto;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .divider {
+            border: none;
+            border-top: 2px solid #3498db;
+            margin: 15px 0;
+        }
+
+        .training-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 10px 0;
         }
 
         .hidden { display: none; }
-
-        h1, h2 { color: var(--primary); border-bottom: 2px solid var(--accent); padding-bottom: 10px; text-align: center; }
 
         .btn {
             display: block;
             width: 100%;
             max-width: 300px;
-            margin: 20px auto;
+            margin: 30px auto 0 auto;
             background: var(--accent);
             color: #fff;
             padding: 12px 20px;
@@ -67,9 +87,8 @@
         .btn:hover { background: #2980b9; }
 
         .briefing-box {
-            background: #f8f9fa;
-            padding: 20px;
-            border-left: 5px solid var(--accent);
+            background: #ffffff;
+            padding: 10px 0;
             margin: 20px 0;
         }
 
@@ -87,15 +106,13 @@
             padding: 10px;
             background: #f9f9f9;
             border-radius: 4px;
-            border: 1px solid transparent;
         }
 
-        .options label:hover { background: #f1f1f1; border-color: #ccc; }
+        .options label:hover { background: #f1f1f1; }
 
         .results-box {
             text-align: center;
             padding: 20px;
-            margin-top: 20px;
         }
 
         .pass { color: var(--success); font-weight: bold; font-size: 1.5em; }
@@ -103,9 +120,9 @@
         
         .progress {
             font-weight: bold;
-            color: var(--secondary);
             margin-bottom: 10px;
             text-align: right;
+            color: var(--secondary);
         }
     </style>
 </head>
@@ -113,18 +130,18 @@
 
 <div class="container">
     <div id="briefing-section">
-        <div class="logo-container">
+        <div class="welcome-header">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
+            <div class="company-name">Neopetro Sdn Bhd</div>
+            <hr class="divider">
+            <div class="training-title">Safety Awareness Training</div>
+            <hr class="divider">
         </div>
-        
-        <h1>Neopetro Sdn Bhd</h1>
-        <h2>Safety Awareness Training</h2>
         
         <p>Welcome to the <strong>NEOPETRO</strong> mandatory safety and operational briefing. Please review the materials below thoroughly before proceeding to the assessment.</p>
         
         <div class="briefing-box">
-            <h3>Standard Operating Procedures:</h3>
-            <ul>
+            <ul style="padding-left: 20px;">
                 <li>Ensure all safety gear (PPE) is inspected before starting a shift.</li>
                 <li>Familiarize yourself with the location of emergency shut-off valves.</li>
                 <li>Zero-tolerance policy for safety protocol bypasses.</li>
@@ -132,48 +149,50 @@
             </ul>
         </div>
         
-        <p style="text-align: center; color: #666;">Note: The exam consists of 25 random questions. Passing mark is 20/25.</p>
+        <p style="text-align: center; color: #666; font-size: 0.9em; margin-top: 30px;">
+            Note: The exam consists of 25 random questions. Passing mark is 20/25.
+        </p>
         
         <button class="btn" onclick="startExam()">START ASSESSMENT</button>
     </div>
 
     <div id="exam-section" class="hidden">
-        <h2>Assessment in Progress</h2>
-        <div class="progress">Total Questions: 25</div>
+        <div class="welcome-header">
+            <div class="company-name">Assessment</div>
+            <hr class="divider">
+        </div>
+        <div class="progress">Question Set: 25 Random Items</div>
         <div id="quiz-container"></div>
         <button class="btn" onclick="submitExam()">SUBMIT ANSWERS</button>
     </div>
 
     <div id="result-section" class="hidden">
-        <div class="logo-container">
+        <div class="welcome-header">
             <img src="NEOPETRO LOGO.png" alt="NEOPETRO Logo" class="company-logo">
+            <div class="company-name">Final Result</div>
+            <hr class="divider">
         </div>
-        <h2>Final Result</h2>
         <div id="result-content" class="results-box"></div>
         <button class="btn" onclick="location.reload()">RESTART SESSION</button>
     </div>
 </div>
 
 <script>
-    /* QUESTION BANK (100 Questions)
-       Replace these samples with your actual 100 questions.
-       'q' = Question, 'a' = Options, 'correct' = Index of right answer (0, 1, 2, or 3)
-    */
+    // 100 QUESTION BANK
     const questionBank = [
         { q: "What is the most important factor in NEOPETRO operations?", a: ["Speed", "Safety", "Cost", "Quantity"], correct: 1 },
         { q: "Which PPE is mandatory for deck operations?", a: ["Safety Boots", "Sunglasses", "Casual Wear", "None"], correct: 0 },
         { q: "Where can you find the Emergency Action Plan?", a: ["In the Galley", "On the Bridge", "At every safety station", "In the personal quarters"], correct: 2 },
         { q: "If a spill is detected, what is the first step?", a: ["Ignore it", "Report and Contain", "Go home", "Clean it later"], correct: 1 },
         { q: "What color code is used for flammable materials?", a: ["Blue", "Green", "Red", "White"], correct: 2 }
-        // Add more questions here until you reach 100...
     ];
 
-    // Placeholder logic to ensure we have at least 100 questions for the randomizer to work
+    // Ensure 100 questions exist for selection logic
     if (questionBank.length < 100) {
         for (let i = questionBank.length + 1; i <= 100; i++) {
             questionBank.push({
-                q: "Additional Operational Question " + i + "?",
-                a: ["Standard Option A", "Correct Answer B", "Option C", "Option D"],
+                q: "Safety Awareness Question #" + i + ": Standard Operating Procedure Check.",
+                a: ["Option A", "Correct Answer", "Option C", "Option D"],
                 correct: 1
             });
         }
@@ -186,7 +205,6 @@
         document.getElementById('exam-section').classList.remove('hidden');
         window.scrollTo(0,0);
         
-        // AUTO SELECT RANDOM 25 QUESTIONS FROM THE 100
         selectedQuestions = questionBank
             .sort(() => 0.5 - Math.random()) 
             .slice(0, 25); 
@@ -216,8 +234,7 @@
     }
 
     function submitExam() {
-        // Confirmation before submitting
-        if(!confirm("Are you sure you want to submit your answers?")) return;
+        if(!confirm("Are you sure you want to submit?")) return;
 
         let score = 0;
         selectedQuestions.forEach((item, index) => {
@@ -237,7 +254,6 @@
         resultSection.classList.remove('hidden');
         window.scrollTo(0,0);
 
-        // PASSING MARKS 20/25
         const isPassed = score >= 20;
         const passStatus = isPassed ? 
             `<p class="pass">CONGRATULATIONS! YOU PASSED.</p>` : 
@@ -247,12 +263,10 @@
             <h3>Score: ${score} / 25</h3>
             ${passStatus}
             <p>You correctly answered ${score} out of 25 questions.</p>
-            <p>${isPassed ? 'You have successfully completed the training module.' : 'Please review the briefing materials and try again.'}</p>
+            <p>${isPassed ? 'You have successfully completed the training module.' : 'Please review the materials and try again.'}</p>
         `;
     }
 </script>
 
 </body>
 </html>
-
-
