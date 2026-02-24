@@ -7,7 +7,7 @@
     <style>
         :root {
             --primary: #2c3e50;
-            --secondary: #34495e;                
+            --secondary: #34495e;
             --accent: #3498db;
             --success: #27ae60;
             --danger: #e74c3c;
@@ -100,26 +100,29 @@
             margin: 20px 0;
         }
 
-        /* PDF Viewer Container */
+        /* FIXED PDF VIEWER STYLES (Single Scrollbar Fix) */
         .pdf-wrapper {
             position: relative;
             margin: 20px 0;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .pdf-container {
             width: 100%;
             height: 600px;
-            border: 2px solid #eee;
-            border-radius: 8px;
             overflow-y: auto;
             background: #525659;
+            -webkit-overflow-scrolling: touch;
         }
 
         iframe {
             width: 100%;
-            height: 2000px; /* Forces vertical scrolling within the container */
+            height: 2500px; /* High height to ensure parent container handles scroll */
             border: none;
             display: block;
+            pointer-events: none; 
         }
 
         .scroll-notice {
@@ -201,7 +204,7 @@
             <hr class="blue-line">
         </div>
         <div class="selection-grid">
-            <button class="btn" onclick="showSubSelection('SAT A')">Safety Awareness Training (SAT A)</button>
+            <button class="btn" onclick="openPDF('SAT-A2')">Safety Awareness Training (SAT A)</button>
             <button class="btn" onclick="showSubSelection('SAT B')">Safety Awareness Training (SAT B)</button>
         </div>
     </div>
@@ -264,20 +267,18 @@
 </div>
 
 <script>
-    // DATA: Link your specific PDF filenames here
+    // SAT-A1 Removed
     const trainingData = {
-        'SAT A': ['SAT-A1', 'SAT-A2'],
+        'SAT A': ['SAT-A2'],
         'SAT B': ['SAT-B1', 'SAT-B2']
     };
 
     const pdfFiles = {
-        'SAT-A1': 'SAT A1.pdf',
         'SAT-A2': 'SAT A2.pdf',
         'SAT-B1': 'SAT B1.pdf',
         'SAT-B2': 'SAT B2.pdf'
     };
 
-    // Placeholder Question Bank
     const questionBank = [];
     for (let i = 1; i <= 100; i++) {
         questionBank.push({
@@ -323,11 +324,9 @@
         currentCourse = sub;
         hasRead = false; 
         
-        // Reset Exam Button state
         const examBtn = document.getElementById('exam-start-btn');
         examBtn.disabled = true;
         
-        // Reset Notification
         const notice = document.getElementById('scroll-warning');
         notice.innerHTML = "⚠️ Please scroll to the bottom of the document to unlock the Exam button.";
         notice.style.background = "#fff3cd";
@@ -339,16 +338,14 @@
         const pdfBox = document.getElementById('pdf-box');
         const encodedFile = encodeURIComponent(pdfFiles[sub]);
         
-        // Injects iframe; high height used to ensure parent container scrollbar is active
-        pdfBox.innerHTML = `<iframe src="${encodedFile}#toolbar=0"></iframe>`;
+        pdfBox.innerHTML = `<iframe src="${encodedFile}#toolbar=0&navpanes=0"></iframe>`;
         
         document.getElementById('pdf-viewer').classList.remove('hidden');
         pdfBox.scrollTop = 0; 
     }
 
-    // SCROLL CHECK: Triggers when the wrapper reaches the end of the content
     function checkScroll(el) {
-        if (el.scrollHeight - el.scrollTop <= el.clientHeight + 50) {
+        if (el.scrollHeight - el.scrollTop <= el.clientHeight + 100) {
             if (!hasRead) {
                 hasRead = true;
                 document.getElementById('exam-start-btn').disabled = false;
@@ -366,7 +363,6 @@
         document.getElementById('exam-section').classList.remove('hidden');
         window.scrollTo(0,0);
         
-        // Randomize and select 25 questions
         selectedQuestions = questionBank
             .sort(() => 0.5 - Math.random()) 
             .slice(0, 25); 
@@ -419,4 +415,3 @@
 
 </body>
 </html>
-
