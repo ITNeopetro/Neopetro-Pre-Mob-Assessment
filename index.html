@@ -105,6 +105,15 @@
 
         .timer-box { font-size: 1.2rem; font-weight: bold; color: var(--danger); text-align: right; margin-bottom: 10px; }
         .question-card { padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fff; min-height: 300px; }
+        
+        /* Ensures multi-line questions display correctly */
+        .question-text {
+            font-size: 1.1em;
+            font-weight: 500;
+            white-space: pre-wrap;
+            margin-bottom: 15px;
+        }
+
         .options label { display: block; margin: 12px 0; cursor: pointer; padding: 15px; background: #f9f9f9; border: 1px solid #eee; border-radius: 6px; transition: 0.2s; }
         .options label:hover { background: #eef7ff; }
 
@@ -200,10 +209,10 @@
         <div class="briefing-box">
             <h3>System Instructions:</h3>
             <ul>
-                <li>Complete your personal information accurately.</li>
-                <li>Exam is timed: <strong>1 minute per question</strong>.</li>
-                <li>Passing Mark: <strong>80% (20/25)</strong>.</li>
-                <li>Qualified personnel will receive a downloadable Certificate.</li>
+                [cite_start]<li>Complete your personal information accurately. [cite: 2]</li>
+                [cite_start]<li>Exam is timed: <strong>1 minute per question</strong>. [cite: 2]</li>
+                [cite_start]<li>Passing Mark: <strong>80% (20/25)</strong>. [cite: 2]</li>
+                [cite_start]<li>Qualified personnel will receive a downloadable Certificate. [cite: 2]</li>
             </ul>
         </div>
         <div style="text-align: center;"><button class="btn" onclick="showCrewInfo()">Next</button></div>
@@ -342,7 +351,7 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     const trainingData = { 'SAT A': ['SAT-A2'], 'SAT B': ['SAT-B1', 'SAT-B2'] };
     const pdfFiles = { 'SAT-A2': 'SAT A2.pdf', 'SAT-B1': 'SAT B1.pdf', 'SAT-B2': 'SAT B2.pdf' };
     
-const masterQuestionBank = [
+    const masterQuestionBank = [
         { q: "What is HSSE?", a: ["Heat, Safe, Security, Environment", "Health, Safety, Security, Environment", "Help Safety Security Environment", "Heal, Safe, Secure, Environment"], correct: "Health, Safety, Security, Environment" },
         { q: "Which of the following is NOT the Company's core values?", a: ["Corruption", "Respect", "Excellence", "Integrity"], correct: "Corruption" },
         { q: "What is legislation related to Marine Pollution?", a: ["SOLAS", "STWC", "MARPOL", "MLC"], correct: "MARPOL" },
@@ -527,6 +536,7 @@ const masterQuestionBank = [
     function startExam() {
         hideAll(); 
         document.getElementById('exam-section').classList.remove('hidden');
+        // Select 25 random questions from the updated bank
         selectedQuestions = shuffleArray(masterQuestionBank).slice(0, 25).map(q => {
             return { ...q, options: shuffleArray(q.a) };
         });
@@ -545,7 +555,7 @@ const masterQuestionBank = [
         document.getElementById('question-area').innerHTML = `
             <div class="question-card">
                 <h3>Question ${currentQIndex+1} of 25</h3>
-                <p style="font-size:1.1em; font-weight:500;">${qData.q}</p>
+                <div class="question-text">${qData.q}</div>
                 <div class="options">
                     ${qData.options.map((opt) => `
                         <label><input type="radio" name="q" value="${opt}"> ${opt}</label>
@@ -607,9 +617,3 @@ const masterQuestionBank = [
 </script>
 </body>
 </html>
-
-
-
-
-
-
