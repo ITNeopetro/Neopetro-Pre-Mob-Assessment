@@ -106,7 +106,6 @@
         .timer-box { font-size: 1.2rem; font-weight: bold; color: var(--danger); text-align: right; margin-bottom: 10px; }
         .question-card { padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fff; min-height: 300px; }
         
-        /* Ensures multi-line questions display correctly */
         .question-text {
             font-size: 1.1em;
             font-weight: 500;
@@ -429,7 +428,7 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         { 
             q: "Which of the below are correct for the Chief Engineer's roles & responsibilities onboard the vessel?\n\ni. Responsible for the safe and efficient operation, maintenance and repair of the propulsion unit, all auxiliary engines, galley equipment and all machinery and electrical items on board.\nii. To keep themselves informed and adhered to the Company's policies, Safety Management System (SMS) and their responsibilities.\niii. Report any incidents, accidents, near miss or dangerous situations to onshore supports.\niv. Not necessary to participate in safety meetings and Master SMS review.", 
             a: ["i, ii & iii", "i, iii & iv", "i & ii", "All of the above"], 
-            correct: "i, ii & iii" 
+            correct: "i, ii, iii" 
         },
         { 
             q: "What are the Crew members' roles & responsibilities onboard the vessel?\n\ni. Rigging and controlling gangways and other means of access to the ship.\nii. Assist offshore personnel transfer.\niii. Assist in the maintenance of lifesaving and firefighting equipment.\niv. Take reasonable care for the health, safety and environment of himself and of other persons that may be affected by his actions on the vessel.\nv. Any additional duties within the competence of department personnel, as ordered by the Master.", 
@@ -536,7 +535,6 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     function startExam() {
         hideAll(); 
         document.getElementById('exam-section').classList.remove('hidden');
-        // Select 25 random questions from the updated bank
         selectedQuestions = shuffleArray(masterQuestionBank).slice(0, 25).map(q => {
             return { ...q, options: shuffleArray(q.a) };
         });
@@ -583,6 +581,17 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         userAnswers.forEach((ans, idx) => { if (ans === selectedQuestions[idx].correct) finalScore++; });
         const pct = (finalScore/25*100).toFixed(0);
         const passed = finalScore >= 20;
+
+        // Auto-submit to Google Sheets
+        const data = {
+            name: document.getElementById('crew_name').value,
+            position: document.getElementById('crew_position').value,
+            vessel: document.getElementById('vessel_name').value,
+            course: currentCourse,
+            score: pct + "%",
+            cert: passed ? "Yes" : "No"
+        };
+        sendDataToGoogle(data);
         
         document.getElementById('result-content').innerHTML = `
             <div style="margin-bottom:20px;">
@@ -607,6 +616,24 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         acts.appendChild(r);
     }
 
+    function sendDataToGoogle(data) {
+        const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScLZS0H5zlt_V7Hi3-BnwXrKWzH1xH11JNumSm-HWvkA/formResponse";
+        
+        const formData = new FormData();
+        formData.append("entry.1799182697", data.name);
+        formData.append("entry.2005986452", data.position);
+        formData.append("entry.1065046570", data.vessel);
+        formData.append("entry.1039845341", data.course);
+        formData.append("entry.1275216335", data.score);
+        formData.append("entry.1350645607", data.cert);
+
+        fetch(FORM_URL, {
+            method: "POST",
+            mode: "no-cors",
+            body: formData
+        }).catch(e => console.error("Error submitting results", e));
+    }
+
     function printCert() {
         document.getElementById('cert-user-name').innerText = document.getElementById('crew_name').value.toUpperCase();
         document.getElementById('cert-course-name').innerText = currentCourse;
@@ -617,5 +644,3 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
 </script>
 </body>
 </html>
-
-
