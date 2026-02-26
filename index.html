@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NP - Safety Awareness Training</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("RECKkhMEBOia4Qbkh");
+        })();
+    </script>
     <style>
         :root {
             --primary: #2c3e50;
@@ -582,7 +588,7 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         const pct = (finalScore/25*100).toFixed(0);
         const passed = finalScore >= 20;
 
-        // Auto-submit to Google Sheets
+        // Auto-submit via EmailJS
         const data = {
             name: document.getElementById('crew_name').value,
             position: document.getElementById('crew_position').value,
@@ -591,7 +597,7 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
             score: pct + "%",
             cert: passed ? "Yes" : "No"
         };
-        sendDataToGoogle(data);
+        sendDataViaEmail(data);
         
         document.getElementById('result-content').innerHTML = `
             <div style="margin-bottom:20px;">
@@ -616,22 +622,13 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         acts.appendChild(r);
     }
 
-    function sendDataToGoogle(data) {
-        const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLScLZS0H5zlt_V7Hi3-BnwXrKWzH1xH11JNumSm-HWvkA/formResponse";
-        
-        const formData = new FormData();
-        formData.append("entry.1799182697", data.name);
-        formData.append("entry.2005986452", data.position);
-        formData.append("entry.1065046570", data.vessel);
-        formData.append("entry.1039845341", data.course);
-        formData.append("entry.1275216335", data.score);
-        formData.append("entry.1350645607", data.cert);
-
-        fetch(FORM_URL, {
-            method: "POST",
-            mode: "no-cors",
-            body: formData
-        }).catch(e => console.error("Error submitting results", e));
+    function sendDataViaEmail(data) {
+        emailjs.send("service_mmld22b", "template_uz9p1au", data)
+            .then(() => {
+                console.log('Result notification sent successfully!');
+            }, (error) => {
+                console.error('Email failed to send...', error);
+            });
     }
 
     function printCert() {
