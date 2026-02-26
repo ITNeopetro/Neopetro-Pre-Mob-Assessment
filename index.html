@@ -7,6 +7,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
+            // Initialized with your provided Public Key
             emailjs.init("RECKkhMEBOia4Qbkh");
         })();
     </script>
@@ -401,7 +402,7 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         { q: "Which of the followings is Not True about Company's SMS?", a: ["Section 2: Chief Officer Roles and Responsibilities", "Section 5: Master Roles and Responsibilities", "Section 7: Procedures for Shipboard Operations", "Section 9: Incident Notification and Investigation Management"], correct: "Section 2: Chief Officer Roles and Responsibilities" },
         { q: "Who is the Safety Officer Onboard?", a: ["Master", "Chief Officer", "Chief Engineer", "Able Body"], correct: "Chief Officer" },
         { q: "On the vessel, crew only allowed to smoke at", a: ["Bridge Wing", "Toilet and Bathroom", "Designated Smoking Area when outside of 500m Zone.", "All the Above"], correct: "Designated Smoking Area when outside of 500m Zone." },
-        { q: "What happen to those violating the IOGP Life Saving Rules or ZETO rules?", a: ["ACT", "Warning", "Consequence management or possible termination for serious cases.", "Warning."], correct: "Consequence management or possible termination for serious cases." },
+        { q: "What happen to those violating the IOGP Life Saving Rules or ZETO rules?", a: ["ACT", "Warning", "Consequence management or possible termination for serious cases.", "Termination"], correct: "Consequence management or possible termination for serious cases." },
         { q: "What is HEMP?", a: ["Hazard and Effect Management Process", "HSSE, Environment and Medical Procedure", "Hazard and Environment Master Procedure", "HSSE and Evaluate Management Procedure"], correct: "Hazard and Effect Management Process" },
         { q: "What is the objective of HEMP? Please choose the correct answer.", a: ["To identify and manage the hazards and associated risks within the Company's operations to \"As Low As Reasonably Practicable\" (ALARP)", "To assess the risks and put appropriate control measures in place, where appropriate and following ALARP principles, to prevent accidents arising from these hazards", "To propose recovery measures should the control measures fail and to mitigate severity of consequences and prevent escalation of an accident.", "All of the above"], correct: "All of the above" },
         { q: "What is the first step in the hazard and effect management process (HEMP)?", a: ["Identify the hazards", "Decide who might be harmed and how", "Evaluate the risks and decide on precautions", "Record your findings and implement them"], correct: "Identify the hazards" },
@@ -625,10 +626,13 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
     }
 
     function sendDataViaEmail(data) {
-        emailjs.send("service_mmld22b", "template_uz9p1au", data)
+        // Updated with your provided Service ID and Template ID
+        emailjs.send("service_mmld22b", "template_bl9m7en", data)
             .then(() => {
+                alert('Success: Result notification sent successfully!');
                 console.log('Result notification sent successfully!');
             }, (error) => {
+                alert('Error: Email failed to send. Check your EmailJS dashboard settings.');
                 console.error('Email failed to send...', error);
             });
     }
