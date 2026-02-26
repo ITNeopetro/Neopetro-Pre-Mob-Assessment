@@ -588,14 +588,16 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
         const pct = (finalScore/25*100).toFixed(0);
         const passed = finalScore >= 20;
 
-        // Auto-submit via EmailJS
+        // Auto-submit via EmailJS with status color
         const data = {
-            name: document.getElementById('crew_name').value,
-            position: document.getElementById('crew_position').value,
-            vessel: document.getElementById('vessel_name').value,
-            course: currentCourse,
-            score: pct + "%",
-            cert: passed ? "Yes" : "No"
+            crew_name: document.getElementById('crew_name').value,
+            crew_position: document.getElementById('crew_position').value,
+            vessel_name: document.getElementById('vessel_name').value,
+            course_name: currentCourse,
+            final_score: pct + "%",
+            pass_status: passed ? "PASSED" : "FAILED",
+            status_color: passed ? "#27ae60" : "#e74c3c",
+            exam_date: document.getElementById('current_date').value
         };
         sendDataViaEmail(data);
         
@@ -641,4 +643,3 @@ NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO NEOPETRO
 </script>
 </body>
 </html>
-
